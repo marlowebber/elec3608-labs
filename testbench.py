@@ -45,14 +45,15 @@ def alu(alu_function, a, b):
     elif alu_function == ALU_AND:
         r = a & b
 
-        #  `ALU_SLL:   result = op_a << op_b;
-        #     `ALU_SRL:   result = op_a >> op_b;
-        #     `ALU_SRA:   result = op_a >>> op_b;
-        #     `ALU_SLT:   result = (op_a < op_b) ? 1 : 0;
-        #     `ALU_SLTU:
-
     elif alu_function == ALU_SLL:
+        ua = uint32(a)
+        ub = uint32(b)
+        r = a << b
     elif alu_function == ALU_SRL:
+        ua = uint32(a)
+        ub = uint32(b)
+        r = a >> b
+
     elif alu_function == ALU_SRA:
         r = a >> b
     elif alu_function == ALU_SLT:
@@ -61,7 +62,6 @@ def alu(alu_function, a, b):
         ua = uint32(a)
         ub = uint32(b)
         r = 1 if ua < ub else 0
-      
 
     else:
         r = 0
@@ -110,3 +110,22 @@ ok = test_alu(tb, ALU_OR, 1, 1)
 ok = test_alu(tb, ALU_AND, 0, 0)
 ok = test_alu(tb, ALU_AND, 0, 1)
 ok = test_alu(tb, ALU_AND, 1, 1)
+
+
+ok = test_alu(tb, ALU_SLL, 0, 1)
+ok = test_alu(tb, ALU_SLL, 1, 1)
+
+
+ok = test_alu(tb, ALU_SRL, 0, 1)
+ok = test_alu(tb, ALU_SRL, 1, 1)
+
+
+ok = test_alu(tb, ALU_SLT, 0, 1)
+ok = test_alu(tb, ALU_SLT, 1, 1)
+
+ok = test_alu(tb, ALU_SLTU, 0, 1)
+ok = test_alu(tb, ALU_SLTU, 1, 1)
+
+
+# https://stackoverflow.com/questions/7858217/why-is-set-on-less-than-an-alu-operation
+ok = test_alu(tb, ALU_SLTU, 0x80000000, 1)
