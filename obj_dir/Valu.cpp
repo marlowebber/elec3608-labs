@@ -110,18 +110,10 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
             if ((4U & (IData)(vlTOPp->alu_function))) {
                 if ((2U & (IData)(vlTOPp->alu_function))) {
                     if ((1U & (IData)(vlTOPp->alu_function))) {
-                        if ((0x80000000U & (vlTOPp->op_a 
-                                            ^ vlTOPp->op_b))) {
-                            vlTOPp->result = (1U & 
-                                              (vlTOPp->op_a 
-                                               >> 0x1fU));
-                        } else {
-                            vlTOPp->result = (vlTOPp->op_a 
-                                              - vlTOPp->op_b);
-                            vlTOPp->result = (1U & 
-                                              (vlTOPp->result 
-                                               >> 0x1fU));
-                        }
+                        vlTOPp->result = (vlTOPp->op_a 
+                                          - vlTOPp->op_b);
+                        vlTOPp->result = (1U & (vlTOPp->result 
+                                                >> 0x1fU));
                     } else {
                         vlTOPp->result = 0U;
                     }

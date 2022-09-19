@@ -15,6 +15,12 @@ module alu(
     // Implement the zero flag
     // assign result_eq_zero = 1'b0;
 
+   wire signed  [31:0] op_a_signed;
+   wire signed  [31:0] op_b_signed;
+
+    assign op_a_signed = op_a;
+    assign op_b_signed = op_b;
+
     // Compute result
     always_comb begin
         case (alu_function)
@@ -35,16 +41,10 @@ module alu(
             `ALU_SRA:   result = op_a >>> op_b;
 
             `ALU_SLT:   
-                        // 
-                        begin
-                            if (op_a[31] ^ op_b[31]) begin
-                                result = op_a[31];
-                            end 
-                            else begin
-                                result = (op_a-op_b);
-                                result = result[31];
-                            end
-                        end
+                    begin
+                        result = (op_a_signed - op_b_signed);
+                        result = result[31];//(op_a_signed < op_b_signed) ? 1 : 0;
+                    end
 
             `ALU_SLTU:   
                     begin

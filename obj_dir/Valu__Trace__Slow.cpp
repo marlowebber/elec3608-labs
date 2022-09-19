@@ -70,6 +70,8 @@ void Valu::traceInitThis__1(Valu__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, 
         vcdp->declBus(c+17,"alu op_b", false,-1, 31,0);
         vcdp->declBus(c+25,"alu result", false,-1, 31,0);
         vcdp->declBit(c+33,"alu result_eq_zero", false,-1);
+        vcdp->declBus(c+9,"alu op_a_signed", false,-1, 31,0);
+        vcdp->declBus(c+17,"alu op_b_signed", false,-1, 31,0);
     }
 }
 
