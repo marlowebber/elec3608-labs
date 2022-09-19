@@ -33,6 +33,16 @@ def int32(v):
     return c_int32(v).value
 
 
+# x is an n-bit number to be shifted m times
+def sra(x, n, m):
+    if x & 2 ** (n - 1) != 0:  # MSB is 1, i.e. x is negative
+        filler = int("1" * m + "0" * (n - m), 2)
+        x = (x >> m) | filler  # fill in 0's with 1's
+        return x
+    else:
+        return x >> m
+
+
 # This is the function we are trying to emulate in our system verilog
 def alu(alu_function, a, b):
     if alu_function == ALU_ADD:
@@ -56,7 +66,10 @@ def alu(alu_function, a, b):
         r = a >> b
 
     elif alu_function == ALU_SRA:
-        r = a >> b
+        # r = a >> b
+        # int(a, 32) - (1 << b)
+        r = sra(a, 32, b)
+
     elif alu_function == ALU_SLT:
 
         ia = int32(a)
