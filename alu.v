@@ -19,14 +19,6 @@ module alu(
     always_comb begin
         case (alu_function)
 
-
-// `define ALU_ADD     5'b00001
-// `define ALU_SUB     5'b00010
-// `define ALU_XOR     5'b01001
-// `define ALU_OR      5'b01010
-// `define ALU_AND     5'b01011
-
-
             `ALU_ADD:   result = op_a + op_b;
             `ALU_SUB:   result = op_a - op_b;
 
@@ -34,6 +26,23 @@ module alu(
             `ALU_XOR:   result = op_a ^ op_b;
             `ALU_OR:    result = op_a | op_b;
             `ALU_AND:   result = op_a & op_b;
+
+
+
+            `ALU_SLL:   result = op_a << op_b;
+            `ALU_SRL:   result = op_a >> op_b;
+
+            `ALU_SRA:   result = op_a >>> op_b;
+
+            `ALU_SLT:   result = (op_a < op_b) ? 1 : 0;
+
+            `ALU_SLTU:   
+                        if (a[31] XOR b[31]) begin
+                            result = a[31]
+                        end else begin
+                            result = (a-b)[31]
+                        end
+
 
             default: result = `ZERO;
         endcase
