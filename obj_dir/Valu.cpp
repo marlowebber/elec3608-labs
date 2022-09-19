@@ -88,38 +88,76 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Valu::_combo__TOP__1\n"); );
     Valu* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->result = ((0x10U & (IData)(vlTOPp->alu_function))
-                       ? 0U : ((8U & (IData)(vlTOPp->alu_function))
-                                ? ((4U & (IData)(vlTOPp->alu_function))
-                                    ? 0U : ((2U & (IData)(vlTOPp->alu_function))
-                                             ? ((1U 
+    if ((0x10U & (IData)(vlTOPp->alu_function))) {
+        vlTOPp->result = 0U;
+    } else {
+        if ((8U & (IData)(vlTOPp->alu_function))) {
+            if ((4U & (IData)(vlTOPp->alu_function))) {
+                vlTOPp->result = 0U;
+            } else {
+                if ((2U & (IData)(vlTOPp->alu_function))) {
+                    vlTOPp->result = ((1U & (IData)(vlTOPp->alu_function))
+                                       ? (vlTOPp->op_a 
+                                          & vlTOPp->op_b)
+                                       : (vlTOPp->op_a 
+                                          | vlTOPp->op_b));
+                } else {
+                    if ((1U & (IData)(vlTOPp->alu_function))) {
+                        vlTOPp->result = (vlTOPp->op_a 
+                                          ^ vlTOPp->op_b);
+                    } else {
+                        if ((0x80000000U & (vlTOPp->op_a 
+                                            ^ vlTOPp->op_b))) {
+                            vlTOPp->result = (1U & 
+                                              (vlTOPp->op_a 
+                                               >> 0x1fU));
+                        } else {
+                            vlTOPp->result = (vlTOPp->op_a 
+                                              - vlTOPp->op_b);
+                            vlTOPp->result = (1U & 
+                                              (vlTOPp->result 
+                                               >> 0x1fU));
+                        }
+                    }
+                }
+            }
+        } else {
+            vlTOPp->result = ((4U & (IData)(vlTOPp->alu_function))
+                               ? ((2U & (IData)(vlTOPp->alu_function))
+                                   ? ((1U & (IData)(vlTOPp->alu_function))
+                                       ? ((vlTOPp->op_a 
+                                           < vlTOPp->op_b)
+                                           ? 1U : 0U)
+                                       : 0U) : ((1U 
                                                  & (IData)(vlTOPp->alu_function))
                                                  ? 
-                                                (vlTOPp->op_a 
-                                                 & vlTOPp->op_b)
+                                                ((0x1fU 
+                                                  >= vlTOPp->op_b)
+                                                  ? 
+                                                 (vlTOPp->op_a 
+                                                  >> vlTOPp->op_b)
+                                                  : 0U)
                                                  : 
-                                                (vlTOPp->op_a 
-                                                 | vlTOPp->op_b))
-                                             : ((1U 
-                                                 & (IData)(vlTOPp->alu_function))
-                                                 ? 
-                                                (vlTOPp->op_a 
-                                                 ^ vlTOPp->op_b)
-                                                 : 0U)))
-                                : ((4U & (IData)(vlTOPp->alu_function))
-                                    ? 0U : ((2U & (IData)(vlTOPp->alu_function))
-                                             ? ((1U 
-                                                 & (IData)(vlTOPp->alu_function))
-                                                 ? 0U
-                                                 : 
-                                                (vlTOPp->op_a 
-                                                 - vlTOPp->op_b))
-                                             : ((1U 
-                                                 & (IData)(vlTOPp->alu_function))
-                                                 ? 
-                                                (vlTOPp->op_a 
-                                                 + vlTOPp->op_b)
-                                                 : 0U)))));
+                                                ((0x1fU 
+                                                  >= vlTOPp->op_b)
+                                                  ? 
+                                                 (vlTOPp->op_a 
+                                                  >> vlTOPp->op_b)
+                                                  : 0U)))
+                               : ((2U & (IData)(vlTOPp->alu_function))
+                                   ? ((1U & (IData)(vlTOPp->alu_function))
+                                       ? ((0x1fU >= vlTOPp->op_b)
+                                           ? (vlTOPp->op_a 
+                                              << vlTOPp->op_b)
+                                           : 0U) : 
+                                      (vlTOPp->op_a 
+                                       - vlTOPp->op_b))
+                                   : ((1U & (IData)(vlTOPp->alu_function))
+                                       ? (vlTOPp->op_a 
+                                          + vlTOPp->op_b)
+                                       : 0U)));
+        }
+    }
     vlTOPp->result_eq_zero = (0U == vlTOPp->result);
 }
 

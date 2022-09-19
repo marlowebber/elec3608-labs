@@ -3,14 +3,11 @@ from ctypes import c_int32, c_uint32
 
 ALU_ADD = 1
 ALU_SUB = 2
-
 ALU_SLL = 3
 ALU_SRL = 4
 ALU_SRA = 5
 ALU_SLT = 7
 ALU_SLTU = 8
-
-
 ALU_XOR = 9
 ALU_OR = 10
 ALU_AND = 11

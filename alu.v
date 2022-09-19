@@ -37,10 +37,13 @@ module alu(
             `ALU_SLT:   result = (op_a < op_b) ? 1 : 0;
 
             `ALU_SLTU:   
-                        if (a[31] XOR b[31]) begin
-                            result = a[31]
-                        end else begin
-                            result = (a-b)[31]
+                        if (op_a[31] ^ op_b[31]) begin
+                            result = op_a[31];
+                        end 
+                        else begin
+                            
+                            result = (op_a-op_b);
+                            result = result[31];
                         end
 
 
