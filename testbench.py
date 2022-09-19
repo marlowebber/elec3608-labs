@@ -3,10 +3,29 @@ from ctypes import c_int32, c_uint32
 
 ALU_ADD = 1
 ALU_SUB = 2
+
+ALU_SLL = 3
+ALU_SRL = 4
+ALU_SRA = 5
+ALU_SLT = 7
+ALU_SLTU = 8
+
+
 ALU_XOR = 9
 ALU_OR = 10
 ALU_AND = 11
-ALUSYM = {ALU_ADD: "+", ALU_SUB: "-", ALU_XOR: "^", ALU_OR: "|", ALU_AND: "&"}
+ALUSYM = {
+    ALU_ADD: "+",
+    ALU_SUB: "-",
+    ALU_XOR: "^",
+    ALU_OR: "|",
+    ALU_AND: "&",
+    ALU_SLL: "SLL",
+    ALU_SRL: "SRL",
+    ALU_SRA: "SRA",
+    ALU_SLT: "SLT",
+    ALU_SLTU: "SLTU",
+}
 
 
 def uint32(v):
@@ -25,6 +44,24 @@ def alu(alu_function, a, b):
         r = a | b
     elif alu_function == ALU_AND:
         r = a & b
+
+        #  `ALU_SLL:   result = op_a << op_b;
+        #     `ALU_SRL:   result = op_a >> op_b;
+        #     `ALU_SRA:   result = op_a >>> op_b;
+        #     `ALU_SLT:   result = (op_a < op_b) ? 1 : 0;
+        #     `ALU_SLTU:
+
+    elif alu_function == ALU_SLL:
+    elif alu_function == ALU_SRL:
+    elif alu_function == ALU_SRA:
+        r = a >> b
+    elif alu_function == ALU_SLT:
+        r = 1 if a < b else 0
+    elif alu_function == ALU_SLTU:
+        ua = uint32(a)
+        ub = uint32(b)
+        r = 1 if ua < ub else 0
+      
 
     else:
         r = 0
