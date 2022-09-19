@@ -29,6 +29,10 @@ def uint32(v):
     return c_uint32(v).value
 
 
+def int32(v):
+    return c_int32(v).value
+
+
 # This is the function we are trying to emulate in our system verilog
 def alu(alu_function, a, b):
     if alu_function == ALU_ADD:
@@ -54,7 +58,10 @@ def alu(alu_function, a, b):
     elif alu_function == ALU_SRA:
         r = a >> b
     elif alu_function == ALU_SLT:
-        r = 1 if a < b else 0
+
+        ia = int32(a)
+        ib = int32(b)
+        r = 1 if ia < ib else 0
 
     elif alu_function == ALU_SLTU:
         ua = uint32(a)
@@ -119,8 +126,10 @@ ok = test_alu(tb, ALU_SRL, 0, 1)
 ok = test_alu(tb, ALU_SRL, 1, 1)
 ok = test_alu(tb, ALU_SRL, 0xFFFFFFFF, 1)
 
-# https://stackoverflow.com/questions/7858217/why-is-set-on-less-than-an-alu-operation
-ok = test_alu(tb, ALU_SLT, 0x80000000, 1)
+
+ok = test_alu(tb, ALU_SRL, 0xFFFFFFFF, 2)  # 0xFFFFFFFF SRL 2 = 0x3FFFFFFF
+ok = test_alu(tb, ALU_SRA, 0xFFFFFFFF, 2)  # 0xFFFFFFFF SRA 2 = 0xFFFFFFFF
+
 ok = test_alu(tb, ALU_SLT, 0, 1)
 ok = test_alu(tb, ALU_SLT, 1, 1)
 ok = test_alu(tb, ALU_SLT, -1, 1)
@@ -128,3 +137,9 @@ ok = test_alu(tb, ALU_SLT, -1, 1)
 ok = test_alu(tb, ALU_SLTU, 0, 1)
 ok = test_alu(tb, ALU_SLTU, 1, 1)
 ok = test_alu(tb, ALU_SLTU, -1, 1)
+
+
+# 0xFFFFFFFF SLT 1 = 1
+# 0xFFFFFFFF SLTU 1 = 0
+ok = test_alu(tb, ALU_SLT, 0xFFFFFFFF, 1)
+ok = test_alu(tb, ALU_SLTU, 0xFFFFFFFF, 1)
