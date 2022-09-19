@@ -110,19 +110,22 @@ ok = test_alu(tb, ALU_AND, 1, 1)
 
 
 ok = test_alu(tb, ALU_SLL, 0, 1)
-ok = test_alu(tb, ALU_SLL, 1, 1)
+ok = test_alu(tb, ALU_SLL, 0b010, 1)
+ok = test_alu(tb, ALU_SLL, 0xFFFFFFFF, 1)
 
 
 ok = test_alu(tb, ALU_SRL, 0, 1)
 ok = test_alu(tb, ALU_SRL, 1, 1)
+ok = test_alu(tb, ALU_SRL, 0xFFFFFFFF, 1)
 
-
+# https://stackoverflow.com/questions/7858217/why-is-set-on-less-than-an-alu-operation
+ok = test_alu(tb, ALU_SLT, 0x80000000, 1)
 ok = test_alu(tb, ALU_SLT, 0, 1)
 ok = test_alu(tb, ALU_SLT, 1, 1)
+ok = test_alu(tb, ALU_SLT, -1, 1)
+ok = test_alu(tb, ALU_SLT, 0xFFFFFFFF, 1)
+ok = test_alu(tb, ALU_SLT, -0xFFFFFFFF, 1)
 
 ok = test_alu(tb, ALU_SLTU, 0, 1)
 ok = test_alu(tb, ALU_SLTU, 1, 1)
-
-
-# https://stackoverflow.com/questions/7858217/why-is-set-on-less-than-an-alu-operation
-ok = test_alu(tb, ALU_SLTU, 0x80000000, 1)
+ok = test_alu(tb, ALU_SLTU, -1, 1)

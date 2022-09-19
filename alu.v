@@ -34,17 +34,22 @@ module alu(
 
             `ALU_SRA:   result = op_a >>> op_b;
 
-            `ALU_SLT:   result = (op_a < op_b) ? 1 : 0;
+            `ALU_SLT:   
+                        // 
+                        begin
+                            if (op_a[31] ^ op_b[31]) begin
+                                result = op_a[31];
+                            end 
+                            else begin
+                                result = (op_a-op_b);
+                                result = result[31];
+                            end
+                        end
 
             `ALU_SLTU:   
-                        if (op_a[31] ^ op_b[31]) begin
-                            result = op_a[31];
-                        end 
-                        else begin
-                            
-                            result = (op_a-op_b);
-                            result = result[31];
-                        end
+                    begin
+                        result = (op_a < op_b) ? 1 : 0;
+                    end
 
 
             default: result = `ZERO;

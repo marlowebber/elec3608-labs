@@ -92,20 +92,24 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
         vlTOPp->result = 0U;
     } else {
         if ((8U & (IData)(vlTOPp->alu_function))) {
+            vlTOPp->result = ((4U & (IData)(vlTOPp->alu_function))
+                               ? 0U : ((2U & (IData)(vlTOPp->alu_function))
+                                        ? ((1U & (IData)(vlTOPp->alu_function))
+                                            ? (vlTOPp->op_a 
+                                               & vlTOPp->op_b)
+                                            : (vlTOPp->op_a 
+                                               | vlTOPp->op_b))
+                                        : ((1U & (IData)(vlTOPp->alu_function))
+                                            ? (vlTOPp->op_a 
+                                               ^ vlTOPp->op_b)
+                                            : ((vlTOPp->op_a 
+                                                < vlTOPp->op_b)
+                                                ? 1U
+                                                : 0U))));
+        } else {
             if ((4U & (IData)(vlTOPp->alu_function))) {
-                vlTOPp->result = 0U;
-            } else {
                 if ((2U & (IData)(vlTOPp->alu_function))) {
-                    vlTOPp->result = ((1U & (IData)(vlTOPp->alu_function))
-                                       ? (vlTOPp->op_a 
-                                          & vlTOPp->op_b)
-                                       : (vlTOPp->op_a 
-                                          | vlTOPp->op_b));
-                } else {
                     if ((1U & (IData)(vlTOPp->alu_function))) {
-                        vlTOPp->result = (vlTOPp->op_a 
-                                          ^ vlTOPp->op_b);
-                    } else {
                         if ((0x80000000U & (vlTOPp->op_a 
                                             ^ vlTOPp->op_b))) {
                             vlTOPp->result = (1U & 
@@ -118,33 +122,22 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
                                               (vlTOPp->result 
                                                >> 0x1fU));
                         }
+                    } else {
+                        vlTOPp->result = 0U;
                     }
+                } else {
+                    vlTOPp->result = ((1U & (IData)(vlTOPp->alu_function))
+                                       ? ((0x1fU >= vlTOPp->op_b)
+                                           ? (vlTOPp->op_a 
+                                              >> vlTOPp->op_b)
+                                           : 0U) : 
+                                      ((0x1fU >= vlTOPp->op_b)
+                                        ? (vlTOPp->op_a 
+                                           >> vlTOPp->op_b)
+                                        : 0U));
                 }
-            }
-        } else {
-            vlTOPp->result = ((4U & (IData)(vlTOPp->alu_function))
-                               ? ((2U & (IData)(vlTOPp->alu_function))
-                                   ? ((1U & (IData)(vlTOPp->alu_function))
-                                       ? ((vlTOPp->op_a 
-                                           < vlTOPp->op_b)
-                                           ? 1U : 0U)
-                                       : 0U) : ((1U 
-                                                 & (IData)(vlTOPp->alu_function))
-                                                 ? 
-                                                ((0x1fU 
-                                                  >= vlTOPp->op_b)
-                                                  ? 
-                                                 (vlTOPp->op_a 
-                                                  >> vlTOPp->op_b)
-                                                  : 0U)
-                                                 : 
-                                                ((0x1fU 
-                                                  >= vlTOPp->op_b)
-                                                  ? 
-                                                 (vlTOPp->op_a 
-                                                  >> vlTOPp->op_b)
-                                                  : 0U)))
-                               : ((2U & (IData)(vlTOPp->alu_function))
+            } else {
+                vlTOPp->result = ((2U & (IData)(vlTOPp->alu_function))
                                    ? ((1U & (IData)(vlTOPp->alu_function))
                                        ? ((0x1fU >= vlTOPp->op_b)
                                            ? (vlTOPp->op_a 
@@ -155,7 +148,8 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
                                    : ((1U & (IData)(vlTOPp->alu_function))
                                        ? (vlTOPp->op_a 
                                           + vlTOPp->op_b)
-                                       : 0U)));
+                                       : 0U));
+            }
         }
     }
     vlTOPp->result_eq_zero = (0U == vlTOPp->result);
