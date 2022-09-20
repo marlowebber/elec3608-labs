@@ -170,6 +170,50 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__2(Vtestbench__Syms* __restrict vlS
                               | (7U & (vlTOPp->testbench__DOT__imem_data 
                                        >> 0xcU)))))) {
                 vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+            } else {
+                if ((4U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x16U)) 
+                                  | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0xcU)))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 9U;
+                } else {
+                    if ((6U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0x16U)) 
+                                      | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU)))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                    }
+                }
+            }
+        } else {
+            if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+                } else {
+                    if ((4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 9U;
+                    } else {
+                        if ((6U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x16U)) 
+                                    | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0xcU))))) {
+                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                        } else {
+                            if ((1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU))))) {
+                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 3U;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -314,6 +358,50 @@ void Vtestbench::_settle__TOP__3(Vtestbench__Syms* __restrict vlSymsp) {
                               | (7U & (vlTOPp->testbench__DOT__imem_data 
                                        >> 0xcU)))))) {
                 vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+            } else {
+                if ((4U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x16U)) 
+                                  | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0xcU)))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 9U;
+                } else {
+                    if ((6U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0x16U)) 
+                                      | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU)))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                    }
+                }
+            }
+        } else {
+            if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+                } else {
+                    if ((4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 9U;
+                    } else {
+                        if ((6U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x16U)) 
+                                    | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0xcU))))) {
+                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                        } else {
+                            if ((1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU))))) {
+                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 3U;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

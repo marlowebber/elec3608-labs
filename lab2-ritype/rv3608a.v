@@ -94,7 +94,8 @@ module rv3608a (
 				casez ({insn_funct7, insn_funct3})
 					10'b 0000000_000 /* ADD  */: alu_op = `ALU_ADD;
 					10'b 0000000_100 /* XOR  */: alu_op = `ALU_XOR;
-					10'b 0000000_110 /* OR  */:  alu_op = `ALU_OR;
+					10'b 0000000_110 /* OR   */: alu_op = `ALU_OR;
+					10'b 0000000_001 /* SLLI */: alu_op = `ALU_SLL;
 				endcase
 			end
 		endcase
