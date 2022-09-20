@@ -1,3 +1,5 @@
+# python3 testbench.py
+
 import pyverilator
 from ctypes import c_int32, c_uint32
 

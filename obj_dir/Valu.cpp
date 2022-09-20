@@ -120,13 +120,14 @@ VL_INLINE_OPT void Valu::_combo__TOP__1(Valu__Syms* __restrict vlSymsp) {
                 } else {
                     vlTOPp->result = ((1U & (IData)(vlTOPp->alu_function))
                                        ? ((0x1fU >= vlTOPp->op_b)
+                                           ? VL_SHIFTRS_III(32,32,32, vlTOPp->op_a, vlTOPp->op_b)
+                                           : VL_NEGATE_I(
+                                                         (vlTOPp->op_a 
+                                                          >> 0x1fU)))
+                                       : ((0x1fU >= vlTOPp->op_b)
                                            ? (vlTOPp->op_a 
                                               >> vlTOPp->op_b)
-                                           : 0U) : 
-                                      ((0x1fU >= vlTOPp->op_b)
-                                        ? (vlTOPp->op_a 
-                                           >> vlTOPp->op_b)
-                                        : 0U));
+                                           : 0U));
                 }
             } else {
                 vlTOPp->result = ((2U & (IData)(vlTOPp->alu_function))

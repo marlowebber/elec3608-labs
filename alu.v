@@ -36,9 +36,9 @@ module alu(
 
 
             `ALU_SLL:   result = op_a << op_b;
-            `ALU_SRL:   result = op_a >> op_b;
 
-            `ALU_SRA:   result = op_a >>> op_b;
+            `ALU_SRL:   result = op_a >> op_b;
+            `ALU_SRA:   result = op_a_signed >>> op_b;
 
             `ALU_SLT:   
                     begin
