@@ -89,6 +89,7 @@ module rv3608a (
 					10'b zzzzzzz_100 /* XORI  */: alu_op = `ALU_XOR;
 					10'b zzzzzzz_110 /* ORI   */: alu_op = `ALU_OR;
 					10'b zzzzzzz_001 /* SLLI  */: alu_op = `ALU_SLL;
+                default: illegalinsn = 1;
 				endcase
 			end
 			`OPCODE_OP: begin
@@ -96,8 +97,10 @@ module rv3608a (
 					10'b 0000000_000 /* ADD  */: alu_op = `ALU_ADD;
 					10'b 0000000_100 /* XOR  */: alu_op = `ALU_XOR;
 					10'b 0000000_110 /* OR   */: alu_op = `ALU_OR;
+                default: illegalinsn = 1;
 				endcase
 			end
+            default: illegalinsn = 1;
 		endcase
 	end
 

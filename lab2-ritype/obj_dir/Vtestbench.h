@@ -32,6 +32,7 @@ VL_MODULE(Vtestbench) {
     CData/*0:0*/ testbench__DOT__dut__DOT__alu_eq_zero;
     CData/*0:0*/ testbench__DOT__dut__DOT__alu_eq;
     CData/*4:0*/ testbench__DOT__dut__DOT__alu_op;
+    CData/*0:0*/ testbench__DOT__dut__DOT__illegalinsn;
     CData/*0:0*/ testbench__DOT__dut__DOT__trapped;
     IData/*31:0*/ testbench__DOT__imem_data;
     IData/*31:0*/ testbench__DOT__return_reg;

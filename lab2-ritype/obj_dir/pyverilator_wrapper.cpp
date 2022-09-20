@@ -28,9 +28,9 @@ const uint32_t _pyverilator_num_outputs = 0;
 const char* _pyverilator_outputs[] = {};
 const uint32_t _pyverilator_output_widths[] = {};
 
-const uint32_t _pyverilator_num_internal_signals = 11;
-const char* _pyverilator_internal_signals[] = {"testbench__DOT__dut__DOT__alu_eq_zero","testbench__DOT__dut__DOT__alu_eq","testbench__DOT__dut__DOT__alu_op","testbench__DOT__dut__DOT__trapped","testbench__DOT__imem_data","testbench__DOT__return_reg","testbench__DOT__cycles","testbench__DOT__dut__DOT__alu_result","testbench__DOT__dut__DOT__alu_op_a","testbench__DOT__dut__DOT__alu_op_b","testbench__DOT__dut__DOT__pc"};
-const uint32_t _pyverilator_internal_signal_widths[] = {1,1,5,1,32,32,32,32,32,32,32};
+const uint32_t _pyverilator_num_internal_signals = 12;
+const char* _pyverilator_internal_signals[] = {"testbench__DOT__dut__DOT__alu_eq_zero","testbench__DOT__dut__DOT__alu_eq","testbench__DOT__dut__DOT__alu_op","testbench__DOT__dut__DOT__illegalinsn","testbench__DOT__dut__DOT__trapped","testbench__DOT__imem_data","testbench__DOT__return_reg","testbench__DOT__cycles","testbench__DOT__dut__DOT__alu_result","testbench__DOT__dut__DOT__alu_op_a","testbench__DOT__dut__DOT__alu_op_b","testbench__DOT__dut__DOT__pc"};
+const uint32_t _pyverilator_internal_signal_widths[] = {1,1,5,1,1,32,32,32,32,32,32,32};
 
 const char* _pyverilator_json_data = "null";
 
@@ -115,6 +115,7 @@ uint32_t get_reset(Vtestbench* top){return top->reset;}
 uint32_t get_testbench__DOT__dut__DOT__alu_eq_zero(Vtestbench* top){return top->testbench__DOT__dut__DOT__alu_eq_zero;}
 uint32_t get_testbench__DOT__dut__DOT__alu_eq(Vtestbench* top){return top->testbench__DOT__dut__DOT__alu_eq;}
 uint32_t get_testbench__DOT__dut__DOT__alu_op(Vtestbench* top){return top->testbench__DOT__dut__DOT__alu_op;}
+uint32_t get_testbench__DOT__dut__DOT__illegalinsn(Vtestbench* top){return top->testbench__DOT__dut__DOT__illegalinsn;}
 uint32_t get_testbench__DOT__dut__DOT__trapped(Vtestbench* top){return top->testbench__DOT__dut__DOT__trapped;}
 uint32_t get_testbench__DOT__imem_data(Vtestbench* top){return top->testbench__DOT__imem_data;}
 uint32_t get_testbench__DOT__return_reg(Vtestbench* top){return top->testbench__DOT__return_reg;}
