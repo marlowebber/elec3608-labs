@@ -88,10 +88,10 @@ void Vtestbench::_settle__TOP__1(Vtestbench__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtestbench::_settle__TOP__1\n"); );
     Vtestbench* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->testbench__DOT__dut__DOT__imm_j = (0x1ffffeU 
-                                               & vlTOPp->testbench__DOT__dut__DOT__imm_j);
     vlTOPp->testbench__DOT__dut__DOT__imm_b = (0x1ffeU 
                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b));
+    vlTOPp->testbench__DOT__dut__DOT__imm_j = (0x1ffffeU 
+                                               & vlTOPp->testbench__DOT__dut__DOT__imm_j);
 }
 
 void Vtestbench::_initial__TOP__2(Vtestbench__Syms* __restrict vlSymsp) {
@@ -146,7 +146,7 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
              & (0U < (0x1fU & (vlTOPp->testbench__DOT__imem_data 
                                >> 7U))))) {
             __Vdlyvval__testbench__DOT__dut__DOT__regfile__v0 
-                = vlTOPp->testbench__DOT__dut__DOT__alu_result;
+                = vlTOPp->testbench__DOT__dut__DOT__rfilewdata;
             __Vdlyvset__testbench__DOT__dut__DOT__regfile__v0 = 1U;
             __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v0 
                 = (0x1fU & (vlTOPp->testbench__DOT__imem_data 
@@ -300,6 +300,24 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
             }
         }
     }
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0xfffU 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | (0x1000U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     >> 0x13U)));
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x1801U 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | ((0x7e0U 
+                                                   & (vlTOPp->testbench__DOT__imem_data 
+                                                      >> 0x14U)) 
+                                                  | (0x1eU 
+                                                     & (vlTOPp->testbench__DOT__imem_data 
+                                                        >> 7U))));
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x17ffU 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | (0x800U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     << 4U)));
     vlTOPp->testbench__DOT__dut__DOT__imm_j = ((0xfffffU 
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0x100000U 
@@ -319,77 +337,9 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0xff000U 
                                                   & vlTOPp->testbench__DOT__imem_data));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0xfffU 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | (0x1000U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x13U)));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x1801U 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | ((0x7e0U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x14U)) 
-                                                  | (0x1eU 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 7U))));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x17ffU 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | (0x800U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     << 4U)));
     vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
         [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
                    >> 0xfU))];
-    vlTOPp->testbench__DOT__dut__DOT__alu_op_b = ((0x13U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->testbench__DOT__imem_data))
-                                                   ? 
-                                                  ((((1U 
-                                                      == 
-                                                      ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))) 
-                                                     | (5U 
-                                                        == 
-                                                        ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU))))) 
-                                                    | (0x105U 
-                                                       == 
-                                                       ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))
-                                                    ? 
-                                                   VL_EXTENDS_II(32,6, 
-                                                                 (0x1fU 
-                                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                                     >> 0x14U)))
-                                                    : 
-                                                   ((0xfffff000U 
-                                                     & (VL_NEGATE_I((IData)(
-                                                                            (1U 
-                                                                             & (vlTOPp->testbench__DOT__imem_data 
-                                                                                >> 0x1fU)))) 
-                                                        << 0xcU)) 
-                                                    | (0xfffU 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x14U))))
-                                                   : 
-                                                  vlTOPp->testbench__DOT__dut__DOT__regfile
-                                                  [
-                                                  (0x1fU 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x14U))]);
     if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
         if (((((((((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
                                             >> 0x16U)) 
@@ -669,6 +619,53 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
             }
         }
     }
+    vlTOPp->testbench__DOT__dut__DOT__imm_i_sext = 
+        ((0xfffff000U & (VL_NEGATE_I((IData)((1U & 
+                                              (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x1fU)))) 
+                         << 0xcU)) | (0xfffU & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x14U)));
+    vlTOPp->testbench__DOT__dut__DOT__alu_op_b = ((0x13U 
+                                                   == 
+                                                   (0x7fU 
+                                                    & vlTOPp->testbench__DOT__imem_data))
+                                                   ? 
+                                                  ((((1U 
+                                                      == 
+                                                      ((0x3f8U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0x16U)) 
+                                                       | (7U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0xcU)))) 
+                                                     | (5U 
+                                                        == 
+                                                        ((0x3f8U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0x16U)) 
+                                                         | (7U 
+                                                            & (vlTOPp->testbench__DOT__imem_data 
+                                                               >> 0xcU))))) 
+                                                    | (0x105U 
+                                                       == 
+                                                       ((0x3f8U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0x16U)) 
+                                                        | (7U 
+                                                           & (vlTOPp->testbench__DOT__imem_data 
+                                                              >> 0xcU)))))
+                                                    ? 
+                                                   VL_EXTENDS_II(32,6, 
+                                                                 (0x1fU 
+                                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                                     >> 0x14U)))
+                                                    : vlTOPp->testbench__DOT__dut__DOT__imm_i_sext)
+                                                   : 
+                                                  vlTOPp->testbench__DOT__dut__DOT__regfile
+                                                  [
+                                                  (0x1fU 
+                                                   & (vlTOPp->testbench__DOT__imem_data 
+                                                      >> 0x14U))]);
     if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
         vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
     } else {
@@ -733,6 +730,7 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
     vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 0U;
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
+    vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
     if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
         if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
             if ((0U != (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
@@ -776,8 +774,23 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                     }
                 }
             } else {
-                if ((0x6fU != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((0x67U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                        = vlTOPp->testbench__DOT__dut__DOT__npc;
+                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                        = (vlTOPp->testbench__DOT__dut__DOT__pc 
+                           + VL_EXTENDS_II(32,21, vlTOPp->testbench__DOT__dut__DOT__imm_j));
+                } else {
+                    if ((0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                            = vlTOPp->testbench__DOT__dut__DOT__npc;
+                        vlTOPp->testbench__DOT__dut__DOT__npc 
+                            = (0xfffffffeU & (vlTOPp->testbench__DOT__dut__DOT__regfile
+                                              [(0x1fU 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xfU))] 
+                                              + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext));
+                    } else {
                         if ((0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
                             if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
                                               >> 0xcU)))) {
@@ -946,6 +959,24 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
             }
         }
     }
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0xfffU 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | (0x1000U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     >> 0x13U)));
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x1801U 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | ((0x7e0U 
+                                                   & (vlTOPp->testbench__DOT__imem_data 
+                                                      >> 0x14U)) 
+                                                  | (0x1eU 
+                                                     & (vlTOPp->testbench__DOT__imem_data 
+                                                        >> 7U))));
+    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x17ffU 
+                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
+                                               | (0x800U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     << 4U)));
     vlTOPp->testbench__DOT__dut__DOT__imm_j = ((0xfffffU 
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0x100000U 
@@ -965,77 +996,9 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0xff000U 
                                                   & vlTOPp->testbench__DOT__imem_data));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0xfffU 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | (0x1000U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x13U)));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x1801U 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | ((0x7e0U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x14U)) 
-                                                  | (0x1eU 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 7U))));
-    vlTOPp->testbench__DOT__dut__DOT__imm_b = ((0x17ffU 
-                                                & (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)) 
-                                               | (0x800U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     << 4U)));
     vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
         [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
                    >> 0xfU))];
-    vlTOPp->testbench__DOT__dut__DOT__alu_op_b = ((0x13U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlTOPp->testbench__DOT__imem_data))
-                                                   ? 
-                                                  ((((1U 
-                                                      == 
-                                                      ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))) 
-                                                     | (5U 
-                                                        == 
-                                                        ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU))))) 
-                                                    | (0x105U 
-                                                       == 
-                                                       ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))
-                                                    ? 
-                                                   VL_EXTENDS_II(32,6, 
-                                                                 (0x1fU 
-                                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                                     >> 0x14U)))
-                                                    : 
-                                                   ((0xfffff000U 
-                                                     & (VL_NEGATE_I((IData)(
-                                                                            (1U 
-                                                                             & (vlTOPp->testbench__DOT__imem_data 
-                                                                                >> 0x1fU)))) 
-                                                        << 0xcU)) 
-                                                    | (0xfffU 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x14U))))
-                                                   : 
-                                                  vlTOPp->testbench__DOT__dut__DOT__regfile
-                                                  [
-                                                  (0x1fU 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x14U))]);
     if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
         if (((((((((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
                                             >> 0x16U)) 
@@ -1315,6 +1278,53 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
             }
         }
     }
+    vlTOPp->testbench__DOT__dut__DOT__imm_i_sext = 
+        ((0xfffff000U & (VL_NEGATE_I((IData)((1U & 
+                                              (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x1fU)))) 
+                         << 0xcU)) | (0xfffU & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x14U)));
+    vlTOPp->testbench__DOT__dut__DOT__alu_op_b = ((0x13U 
+                                                   == 
+                                                   (0x7fU 
+                                                    & vlTOPp->testbench__DOT__imem_data))
+                                                   ? 
+                                                  ((((1U 
+                                                      == 
+                                                      ((0x3f8U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0x16U)) 
+                                                       | (7U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0xcU)))) 
+                                                     | (5U 
+                                                        == 
+                                                        ((0x3f8U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0x16U)) 
+                                                         | (7U 
+                                                            & (vlTOPp->testbench__DOT__imem_data 
+                                                               >> 0xcU))))) 
+                                                    | (0x105U 
+                                                       == 
+                                                       ((0x3f8U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0x16U)) 
+                                                        | (7U 
+                                                           & (vlTOPp->testbench__DOT__imem_data 
+                                                              >> 0xcU)))))
+                                                    ? 
+                                                   VL_EXTENDS_II(32,6, 
+                                                                 (0x1fU 
+                                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                                     >> 0x14U)))
+                                                    : vlTOPp->testbench__DOT__dut__DOT__imm_i_sext)
+                                                   : 
+                                                  vlTOPp->testbench__DOT__dut__DOT__regfile
+                                                  [
+                                                  (0x1fU 
+                                                   & (vlTOPp->testbench__DOT__imem_data 
+                                                      >> 0x14U))]);
     if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
         vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
     } else {
@@ -1379,6 +1389,7 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
     vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 0U;
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
+    vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
     if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
         if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
             if ((0U != (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
@@ -1422,8 +1433,23 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                     }
                 }
             } else {
-                if ((0x6fU != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((0x67U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                        = vlTOPp->testbench__DOT__dut__DOT__npc;
+                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                        = (vlTOPp->testbench__DOT__dut__DOT__pc 
+                           + VL_EXTENDS_II(32,21, vlTOPp->testbench__DOT__dut__DOT__imm_j));
+                } else {
+                    if ((0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                            = vlTOPp->testbench__DOT__dut__DOT__npc;
+                        vlTOPp->testbench__DOT__dut__DOT__npc 
+                            = (0xfffffffeU & (vlTOPp->testbench__DOT__dut__DOT__regfile
+                                              [(0x1fU 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xfU))] 
+                                              + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext));
+                    } else {
                         if ((0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
                             if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
                                               >> 0xcU)))) {
@@ -1540,6 +1566,7 @@ void Vtestbench::_ctor_var_reset() {
             testbench__DOT__dut__DOT__regfile[__Vi0] = VL_RAND_RESET_I(32);
     }}
     testbench__DOT__dut__DOT__pc = VL_RAND_RESET_I(32);
+    testbench__DOT__dut__DOT__imm_i_sext = VL_RAND_RESET_I(32);
     testbench__DOT__dut__DOT__imm_b = VL_RAND_RESET_I(13);
     testbench__DOT__dut__DOT__imm_j = VL_RAND_RESET_I(21);
     testbench__DOT__dut__DOT__alu_eq_zero = VL_RAND_RESET_I(1);
@@ -1550,5 +1577,6 @@ void Vtestbench::_ctor_var_reset() {
     testbench__DOT__dut__DOT__alu_op = VL_RAND_RESET_I(5);
     testbench__DOT__dut__DOT__regwrite = VL_RAND_RESET_I(1);
     testbench__DOT__dut__DOT__npc = VL_RAND_RESET_I(32);
+    testbench__DOT__dut__DOT__rfilewdata = VL_RAND_RESET_I(32);
     __Vm_traceActivity = 0;
 }

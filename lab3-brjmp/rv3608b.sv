@@ -217,11 +217,7 @@ module rv3608b (
 
                 //JALR saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the source register, and jumps to that (even) address.
                 rfilewdata = npc;
-                npc = insn_rs1 + imm_j_sext; 
-
-                if (npc % 2) begin
-                    npc = npc + 1
-                end
+                 npc = (regfile[insn_rs1] + imm_i_sext) & ~32'b1;
           
             end
 
