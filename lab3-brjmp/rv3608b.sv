@@ -206,10 +206,23 @@ module rv3608b (
 
             `OPCODE_JAL: begin
                 // LAB implement JAL here
+
+                // JAL saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the program counter, and jumps to that address.
+                rfilewdata = npc;
+                npc = pc + imm_j_sext; 
             end
 
             `OPCODE_JALR: begin
                 // LAB implement JALR here
+
+                //JALR saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the source register, and jumps to that (even) address.
+                rfilewdata = npc;
+                npc = insn_rs1 + imm_j_sext; 
+
+                if (npc % 2) begin
+                    npc = npc + 1
+                end
+          
             end
 
 			// branch instructions: Branch If Equal, Branch Not Equal, Branch Less Than, Branch Greater Than, Branch Less Than Unsigned, Branch Greater Than Unsigned
