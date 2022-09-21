@@ -111,6 +111,8 @@ void Vtestbench::traceInitThis__1(Vtestbench__Syms* __restrict vlSymsp, Verilate
         vcdp->declBus(c+153,"testbench dut alu_op_a", false,-1, 31,0);
         vcdp->declBus(c+161,"testbench dut alu_op_b", false,-1, 31,0);
         vcdp->declBus(c+169,"testbench dut alu_op", false,-1, 4,0);
+        vcdp->declBus(c+153,"testbench dut alu_op_a_signed", false,-1, 31,0);
+        vcdp->declBus(c+161,"testbench dut alu_op_b_signed", false,-1, 31,0);
         vcdp->declBit(c+177,"testbench dut regwrite", false,-1);
         vcdp->declBus(c+185,"testbench dut npc", false,-1, 31,0);
         vcdp->declBus(c+193,"testbench dut rfilewdata", false,-1, 31,0);

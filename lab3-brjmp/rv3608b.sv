@@ -106,6 +106,11 @@ module rv3608b (
                                 imm_val : regfile[insn_rs2];
 	logic   [4:0] alu_op;
 
+    wire signed [31:0] alu_op_a_signed;
+    wire signed [31:0] alu_op_b_signed;
+    assign alu_op_a_signed = alu_op_a;
+    assign alu_op_b_signed = alu_op_b;
+
     // Code below sets alu_op
     always_comb begin
 		case (insn_opcode)
@@ -145,6 +150,10 @@ module rv3608b (
                     // LAB need to map branches to ALU operations here
 					3'b 000 /* BEQ  */: alu_op = `ALU_SUB;
 					3'b 001 /* BNE  */: alu_op = `ALU_SUB;
+					3'b 100 /* BLT  */: alu_op = `ALU_SUB;
+					3'b 101 /* BGE  */: alu_op = `ALU_SUB;
+					3'b 110 /* BLTU */: alu_op = `ALU_SUB;
+					3'b 111 /* BGEU */: alu_op = `ALU_SUB;
                 endcase
             end
 
@@ -175,33 +184,25 @@ module rv3608b (
 		case (insn_opcode)
 			0: alu_op = `ALU_ADD;	// NOP
 
-			// `OPCODE_OP_IMM: begin
-            //     regwrite = 1;
-			// end
-
-			// `OPCODE_OP: begin
-            //     regwrite = 1;
-			// end
-
 
             	`OPCODE_OP_IMM: begin
                     regwrite = 1;
-				casez ({insn_funct7, insn_funct3})
-					10'b zzzzzzz_000 /* ADDI  */: alu_op = `ALU_ADD;
-					10'b zzzzzzz_100 /* XORI  */: alu_op = `ALU_XOR;
-					10'b zzzzzzz_110 /* ORI   */: alu_op = `ALU_OR;
-					10'b zzzzzzz_001 /* SLLI  */: alu_op = `ALU_SLL;
-                default: illegalinsn = 1;
-				endcase
+				// casez ({insn_funct7, insn_funct3})
+				// 	10'b zzzzzzz_000 /* ADDI  */: alu_op = `ALU_ADD;
+				// 	10'b zzzzzzz_100 /* XORI  */: alu_op = `ALU_XOR;
+				// 	10'b zzzzzzz_110 /* ORI   */: alu_op = `ALU_OR;
+				// 	10'b zzzzzzz_001 /* SLLI  */: alu_op = `ALU_SLL;
+                // default: illegalinsn = 1;
+				// endcase
 			end
 			`OPCODE_OP: begin
                     regwrite = 1;
-				casez ({insn_funct7, insn_funct3})
-					10'b 0000000_000 /* ADD  */: alu_op = `ALU_ADD;
-					10'b 0000000_100 /* XOR  */: alu_op = `ALU_XOR;
-					10'b 0000000_110 /* OR   */: alu_op = `ALU_OR;
-                default: illegalinsn = 1;
-				endcase
+				// casez ({insn_funct7, insn_funct3})
+				// 	10'b 0000000_000 /* ADD  */: alu_op = `ALU_ADD;
+				// 	10'b 0000000_100 /* XOR  */: alu_op = `ALU_XOR;
+				// 	10'b 0000000_110 /* OR   */: alu_op = `ALU_OR;
+                // default: illegalinsn = 1;
+				// endcase
             end
 
             `OPCODE_JAL: begin
@@ -229,6 +230,36 @@ module rv3608b (
                     // LAB implement missing branch types
 					3'b 001 /* BNE  */: begin if (!alu_eq_zero) npc = pc + imm_b_sext; end
 					default: illegalinsn = 1;
+
+                    // branch less than
+                    // branch greater than
+                    // branch less than unsigned 
+                    // branch greater than unsigned
+
+					3'b 100 /* BLT  */: begin 
+                        if (alu_result[31]) begin
+                            npc = pc + imm_b_sext;
+                        end
+                    end
+                    3'b 110 /* BLTU */: begin 
+                        if (alu_eq_zero ) begin
+                                npc = pc + imm_b_sext;
+                        end
+                    end
+
+
+					3'b 101 /* BGE  */: begin 
+                        if (alu_eq_zero ) begin
+                            npc = pc + imm_b_sext;
+                        end
+                    end
+
+					3'b 111 /* BGEU */: begin 
+                        if (alu_eq_zero ) begin
+                                npc = pc + imm_b_sext;
+                        end
+                    end
+
 				endcase
 			end
 
