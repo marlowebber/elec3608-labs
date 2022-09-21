@@ -40,6 +40,17 @@ module rv3608c (
     assign  imem_addr = pc;
     assign  insn = imem_data;
 
+
+    // data memory
+    logic [31:0] dmem [0:1023];
+    logic dmem_wr_enable;
+    logic [31:0] dmem_wr_addr;
+    logic [31:0] dmem_wr_data;
+                          
+    logic [31:0] dmem_rd_addr;
+    logic [31:0] dmem_rd_data;
+
+
     // Debugging
     logic   [4:0] d_rd;
     logic   [31:0] d_x0;
@@ -86,6 +97,10 @@ module rv3608c (
          {insn_funct7, insn_funct3} == `OPCODE_SRAI)
          ? imm_shift : imm_i_sext; // either a shift or an imm
 
+    // S - stores
+    logic [31:0] imm_sw; 
+    assign imm_sw = {insn_funct7 , insn_rd  };
+
 	// B - conditionals
 	logic   [12:0] imm_b;
 	assign {imm_b[12], imm_b[10:5]} = insn_funct7, {imm_b[4:1], imm_b[11]} = insn_rd, imm_b[0] = 1'b0;
@@ -110,26 +125,27 @@ module rv3608c (
     wire signed [31:0] alu_op_b_signed;
     assign alu_op_a_signed = alu_op_a;
     assign alu_op_b_signed = alu_op_b;
-    wire [31:0] storeaddr;
+    // logic [31:0] storeaddr;
 
     // Code below sets alu_op
     always_comb begin
 		case (insn_opcode)
 
 
-            `OPCODE_STORE: begin
-                case ( insn_funct3 )
-                    3'b 010 /* SW  */: alu_op = `ALU_SUB;
-                    default: illegalinsn = 1;
-				endcase
-            end
+            // `OPCODE_STORE: begin
+            //     case ( insn_funct3 )
+            //         3'b 010 /* SW  */: alu_op = `ALU_SUB;
+            //         default: illegalinsn = 1;
+			// 	endcase
+            // end
             
-            `OPCODE_LOAD: begin
-				case ( insn_funct3 )
-                    3'b 010 /* LW  */: alu_op = `ALU_SUB;
-                    default: illegalinsn = 1;
-				endcase
-            end
+            // `OPCODE_LOAD: begin
+
+			// 	case ( insn_funct3 )
+            //         3'b 010 /* LW  */: alu_op = `ALU_SUB;
+            //         default: illegalinsn = 1;
+			// 	endcase
+            // end
 
 			`OPCODE_OP_IMM: begin
 				casez ({insn_funct7, insn_funct3})
@@ -203,11 +219,13 @@ module rv3608c (
 
 
             `OPCODE_STORE: begin
+
+		        $display("sw 0x%08x to = 0x%08x", rs2_value, dmem_wr_addr);
                 case ( insn_funct3 )
                     3'b 010 /* SW  */: begin
-                        regwrite = 1;
-                        storeaddr = insn_rs1 + imm_i_sext;
-                        rfilewdata = insn_rs2;//regfile[insn_rs1 + imm_i_sext];
+                        // regwrite = 1;
+                        // storeaddr = insn_rs1 + imm_i_sext;
+                        // rfilewdata = alu_op_a; //regfile[insn_rs1 + imm_i_sext];
 
                     end
                     default: illegalinsn = 1;
@@ -215,10 +233,20 @@ module rv3608c (
             end
             
             `OPCODE_LOAD: begin
+
+		        $display("lw from 0x%08x = 0x%08x", dmem_rd_addr, dmem_rd_data);
 				case ( insn_funct3 )
                     3'b 010 /* LW  */: begin
                         regwrite = 1;
-                        rfilewdata = regfile[insn_rs1 + imm_i_sext];
+                        // rfilewdata = regfile[insn_rs1 + imm_i_sext];
+
+                        //  if (insn_opcode == `OPCODE_LOAD) begin
+            // dmem[ dmem_wr_addr ] <= dmem_wr_data;
+                     rfilewdata = dmem[insn_rs1 + imm_sw];
+
+            
+        // end
+
                     end
                     default: illegalinsn = 1;
 				endcase
@@ -228,24 +256,11 @@ module rv3608c (
 
 
 
-            	`OPCODE_OP_IMM: begin
-                    regwrite = 1;
-				// casez ({insn_funct7, insn_funct3})
-				// 	10'b zzzzzzz_000 /* ADDI  */: alu_op = `ALU_ADD;
-				// 	10'b zzzzzzz_100 /* XORI  */: alu_op = `ALU_XOR;
-				// 	10'b zzzzzzz_110 /* ORI   */: alu_op = `ALU_OR;
-				// 	10'b zzzzzzz_001 /* SLLI  */: alu_op = `ALU_SLL;
-                // default: illegalinsn = 1;
-				// endcase
+            `OPCODE_OP_IMM: begin
+                regwrite = 1;
 			end
 			`OPCODE_OP: begin
-                    regwrite = 1;
-				// casez ({insn_funct7, insn_funct3})
-				// 	10'b 0000000_000 /* ADD  */: alu_op = `ALU_ADD;
-				// 	10'b 0000000_100 /* XOR  */: alu_op = `ALU_XOR;
-				// 	10'b 0000000_110 /* OR   */: alu_op = `ALU_OR;
-                // default: illegalinsn = 1;
-				// endcase
+                regwrite = 1;
             end
 
             `OPCODE_JAL: begin
@@ -326,18 +341,45 @@ module rv3608c (
 				trapped <= 1;
 	
         pc <= npc;
-        if (insn_opcode == OPCODE_STORE) begin
-            if (regwrite)  begin
-                regfile[storeaddr] <= rfilewdata;
-            end
-        end
-        else begin
+    
+        // else begin
             if (regwrite && insn_rd > 0)  begin
                 regfile[insn_rd] <= rfilewdata;
             end
 
+        // end
+
+
+        if (insn_opcode == `OPCODE_STORE) begin
+            dmem[ dmem_wr_addr ] <= dmem_wr_data;
         end
-        x10 <= regfile[10];
+
+       
+
+    // logic [31:0] dmem [0:1023];
+    // logic dmem_wr_enable;
+    // logic [31:0] dmem_wr_addr;
+    // logic [31:0] dmem_wr_data;
+                          
+    // logic [31:0] dmem_rd_addr;
+    // logic [31:0] dmem_rd_data;
+
+
+
+        // if (regwrite && insn_rd > 0) 
+        //     regfile[insn_rd] <= rfilewdata;
+        //     x10 <= regfile[10];
+    	// end
+
+
+
+
+
+        // x10 <= regfile[10];
+
+
+
+
 
     	end
         // reset
