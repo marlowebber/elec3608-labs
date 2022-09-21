@@ -29,6 +29,7 @@ VL_MODULE(Vtestbench) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
+    CData/*0:0*/ testbench__DOT__dut__DOT__dmem_wr_enable;
     CData/*4:0*/ testbench__DOT__dut__DOT__d_rd;
     CData/*6:0*/ testbench__DOT__dut__DOT__d_opcode;
     CData/*0:0*/ testbench__DOT__dut__DOT__illegalinsn;
@@ -41,6 +42,10 @@ VL_MODULE(Vtestbench) {
     IData/*31:0*/ testbench__DOT__imem_data;
     IData/*31:0*/ testbench__DOT__x10;
     IData/*31:0*/ testbench__DOT__cycles;
+    IData/*31:0*/ testbench__DOT__dut__DOT__dmem_wr_addr;
+    IData/*31:0*/ testbench__DOT__dut__DOT__dmem_wr_data;
+    IData/*31:0*/ testbench__DOT__dut__DOT__dmem_rd_addr;
+    IData/*31:0*/ testbench__DOT__dut__DOT__dmem_rd_data;
     IData/*31:0*/ testbench__DOT__dut__DOT__d_x0;
     IData/*31:0*/ testbench__DOT__dut__DOT__d_x1;
     IData/*31:0*/ testbench__DOT__dut__DOT__d_x2;
@@ -55,11 +60,14 @@ VL_MODULE(Vtestbench) {
     IData/*31:0*/ testbench__DOT__dut__DOT__npc;
     IData/*31:0*/ testbench__DOT__dut__DOT__rfilewdata;
     CData/*7:0*/ testbench__DOT__mem[65536];
+    IData/*31:0*/ testbench__DOT__dut__DOT__dmem[1024];
     IData/*31:0*/ testbench__DOT__dut__DOT__regfile[32];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     CData/*0:0*/ __Vclklast__TOP__clock;
+    CData/*0:0*/ __Vchglast__TOP__testbench__DOT__dut__DOT__alu_eq_zero;
+    IData/*31:0*/ __Vchglast__TOP__testbench__DOT__dut__DOT__alu_result;
     IData/*31:0*/ __Vm_traceActivity;
     
     // INTERNAL VARIABLES
@@ -92,6 +100,9 @@ VL_MODULE(Vtestbench) {
     void __Vconfigure(Vtestbench__Syms* symsp, bool first);
   private:
     static QData _change_request(Vtestbench__Syms* __restrict vlSymsp);
+  public:
+    static void _combo__TOP__5(Vtestbench__Syms* __restrict vlSymsp);
+  private:
     void _ctor_var_reset() VL_ATTR_COLD;
   public:
     static void _eval(Vtestbench__Syms* __restrict vlSymsp);
@@ -110,6 +121,8 @@ VL_MODULE(Vtestbench) {
     static void traceChgThis__2(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__4(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__5(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__6(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__1(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis(Vtestbench__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;

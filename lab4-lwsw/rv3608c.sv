@@ -98,8 +98,8 @@ module rv3608c (
          ? imm_shift : imm_i_sext; // either a shift or an imm
 
     // S - stores
-    logic [31:0] imm_sw; 
-    assign imm_sw = {insn_funct7 , insn_rd  };
+    logic [31:0] imm_s_sext; 
+    assign imm_s_sext = {insn_funct7 , insn_rd  };
 
 	// B - conditionals
 	logic   [12:0] imm_b;
@@ -220,12 +220,17 @@ module rv3608c (
 
             `OPCODE_STORE: begin
 
-		        $display("sw 0x%08x to = 0x%08x", rs2_value, dmem_wr_addr);
                 case ( insn_funct3 )
                     3'b 010 /* SW  */: begin
                         // regwrite = 1;
                         // storeaddr = insn_rs1 + imm_i_sext;
                         // rfilewdata = alu_op_a; //regfile[insn_rs1 + imm_i_sext];
+
+                        dmem_wr_data = alu_op_b;
+                        dmem_wr_addr = insn_rs1 + imm_i_sext;
+
+
+		        $display("sw 0x%08x to = 0x%08x", dmem_wr_data, dmem_wr_addr);
 
                     end
                     default: illegalinsn = 1;
@@ -234,7 +239,6 @@ module rv3608c (
             
             `OPCODE_LOAD: begin
 
-		        $display("lw from 0x%08x = 0x%08x", dmem_rd_addr, dmem_rd_data);
 				case ( insn_funct3 )
                     3'b 010 /* LW  */: begin
                         regwrite = 1;
@@ -242,8 +246,13 @@ module rv3608c (
 
                         //  if (insn_opcode == `OPCODE_LOAD) begin
             // dmem[ dmem_wr_addr ] <= dmem_wr_data;
-                     rfilewdata = dmem[insn_rs1 + imm_sw];
 
+                        dmem_rd_addr = insn_rs1 + imm_s_sext;
+                        dmem_rd_data = dmem[dmem_rd_addr];
+                        rfilewdata = dmem_rd_data;
+
+
+		        $display("lw from 0x%08x = 0x%08x", dmem_rd_addr, dmem_rd_data);
             
         // end
 

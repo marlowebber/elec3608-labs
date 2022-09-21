@@ -114,15 +114,25 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
     // Variables
     CData/*4:0*/ __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v0;
     CData/*0:0*/ __Vdlyvset__testbench__DOT__dut__DOT__regfile__v0;
-    CData/*4:0*/ __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v1;
-    CData/*0:0*/ __Vdlyvset__testbench__DOT__dut__DOT__regfile__v1;
+    CData/*0:0*/ __Vdlyvset__testbench__DOT__dut__DOT__dmem__v0;
+    SData/*9:0*/ __Vdlyvdim0__testbench__DOT__dut__DOT__dmem__v0;
     IData/*31:0*/ __Vdly__testbench__DOT__cycles;
     IData/*31:0*/ __Vdlyvval__testbench__DOT__dut__DOT__regfile__v0;
-    IData/*31:0*/ __Vdlyvval__testbench__DOT__dut__DOT__regfile__v1;
+    IData/*31:0*/ __Vdlyvval__testbench__DOT__dut__DOT__dmem__v0;
     // Body
     __Vdly__testbench__DOT__cycles = vlTOPp->testbench__DOT__cycles;
+    __Vdlyvset__testbench__DOT__dut__DOT__dmem__v0 = 0U;
     __Vdlyvset__testbench__DOT__dut__DOT__regfile__v0 = 0U;
-    __Vdlyvset__testbench__DOT__dut__DOT__regfile__v1 = 0U;
+    vlTOPp->testbench__DOT__dut__DOT__d_x0 = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [0U];
+    vlTOPp->testbench__DOT__dut__DOT__d_x1 = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [1U];
+    vlTOPp->testbench__DOT__dut__DOT__d_x2 = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [2U];
+    vlTOPp->testbench__DOT__dut__DOT__d_x3 = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [3U];
+    vlTOPp->testbench__DOT__dut__DOT__d_x4 = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [4U];
     vlTOPp->testbench__DOT__dut__DOT__d_rd = (0x1fU 
                                               & (vlTOPp->testbench__DOT__imem_data 
                                                  >> 7U));
@@ -144,56 +154,35 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
             vlTOPp->testbench__DOT__dut__DOT__trapped = 1U;
         }
         vlTOPp->testbench__DOT__dut__DOT__pc = vlTOPp->testbench__DOT__dut__DOT__npc;
-        vlTOPp->testbench__DOT__x10 = vlTOPp->testbench__DOT__dut__DOT__regfile
-            [0xaU];
+        if (((IData)(vlTOPp->testbench__DOT__dut__DOT__regwrite) 
+             & (0U < (0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                               >> 7U))))) {
+            __Vdlyvval__testbench__DOT__dut__DOT__regfile__v0 
+                = vlTOPp->testbench__DOT__dut__DOT__rfilewdata;
+            __Vdlyvset__testbench__DOT__dut__DOT__regfile__v0 = 1U;
+            __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v0 
+                = (0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                            >> 7U));
+        }
         if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            if (vlTOPp->testbench__DOT__dut__DOT__regwrite) {
-                __Vdlyvval__testbench__DOT__dut__DOT__regfile__v0 
-                    = vlTOPp->testbench__DOT__dut__DOT__rfilewdata;
-                __Vdlyvset__testbench__DOT__dut__DOT__regfile__v0 = 1U;
-                __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v0 
-                    = (0x1fU & ((vlTOPp->testbench__DOT__imem_data 
-                                 >> 0xfU) + ((0xfe0U 
-                                              & (vlTOPp->testbench__DOT__imem_data 
-                                                 >> 0x14U)) 
-                                             | (0x1fU 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 7U)))));
-            }
-        } else {
-            if (((IData)(vlTOPp->testbench__DOT__dut__DOT__regwrite) 
-                 & (0U < (0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                                   >> 7U))))) {
-                __Vdlyvval__testbench__DOT__dut__DOT__regfile__v1 
-                    = vlTOPp->testbench__DOT__dut__DOT__rfilewdata;
-                __Vdlyvset__testbench__DOT__dut__DOT__regfile__v1 = 1U;
-                __Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v1 
-                    = (0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                                >> 7U));
-            }
+            __Vdlyvval__testbench__DOT__dut__DOT__dmem__v0 
+                = vlTOPp->testbench__DOT__dut__DOT__dmem_wr_data;
+            __Vdlyvset__testbench__DOT__dut__DOT__dmem__v0 = 1U;
+            __Vdlyvdim0__testbench__DOT__dut__DOT__dmem__v0 
+                = (0x3ffU & vlTOPp->testbench__DOT__dut__DOT__dmem_wr_addr);
         }
     }
     if (vlTOPp->reset) {
         vlTOPp->testbench__DOT__dut__DOT__pc = 0U;
         vlTOPp->testbench__DOT__dut__DOT__trapped = 0U;
     }
-    vlTOPp->testbench__DOT__dut__DOT__d_x0 = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [0U];
-    vlTOPp->testbench__DOT__dut__DOT__d_x1 = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [1U];
-    vlTOPp->testbench__DOT__dut__DOT__d_x2 = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [2U];
-    vlTOPp->testbench__DOT__dut__DOT__d_x3 = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [3U];
-    vlTOPp->testbench__DOT__dut__DOT__d_x4 = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [4U];
+    if (__Vdlyvset__testbench__DOT__dut__DOT__dmem__v0) {
+        vlTOPp->testbench__DOT__dut__DOT__dmem[__Vdlyvdim0__testbench__DOT__dut__DOT__dmem__v0] 
+            = __Vdlyvval__testbench__DOT__dut__DOT__dmem__v0;
+    }
     if (__Vdlyvset__testbench__DOT__dut__DOT__regfile__v0) {
         vlTOPp->testbench__DOT__dut__DOT__regfile[__Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v0] 
             = __Vdlyvval__testbench__DOT__dut__DOT__regfile__v0;
-    }
-    if (__Vdlyvset__testbench__DOT__dut__DOT__regfile__v1) {
-        vlTOPp->testbench__DOT__dut__DOT__regfile[__Vdlyvdim0__testbench__DOT__dut__DOT__regfile__v1] 
-            = __Vdlyvval__testbench__DOT__dut__DOT__regfile__v1;
     }
     vlTOPp->testbench__DOT__imem_data = ((vlTOPp->testbench__DOT__mem
                                           [(3U | (0xfffcU 
@@ -212,252 +201,171 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                                                | vlTOPp->testbench__DOT__mem
                                                [(0xfffcU 
                                                  & vlTOPp->testbench__DOT__dut__DOT__pc)])));
-    vlTOPp->testbench__DOT__dut__DOT__regwrite = 0U;
-    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                  >> 0xcU)))) {
-                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                }
-            } else {
-                if ((3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                      >> 0xcU)))) {
-                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                    }
-                } else {
-                    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                    } else {
-                        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                            vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                        } else {
-                            if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                                vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                            } else {
-                                if ((0x67U == (0x7fU 
-                                               & vlTOPp->testbench__DOT__imem_data))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    if ((0x40U & vlTOPp->testbench__DOT__imem_data)) {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
+    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+        if ((1U & (~ ((((((((0U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU))))) 
+                            | (2U == (7U & ((0x3f8U 
+                                             & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                            | (7U & 
+                                               (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU)))))) 
+                           | (3U == (7U & ((0x3f8U 
+                                            & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x16U)) 
+                                           | (7U & 
+                                              (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU)))))) 
+                          | (4U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))) 
+                         | (6U == (7U & ((0x3f8U & 
+                                          (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                         | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU)))))) 
+                        | (7U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))))) 
+                       | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU))))) 
+                      | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU)))))))) {
+            if ((0x105U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
                 vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & (~ vlTOPp->testbench__DOT__imem_data))) {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
-                    }
-                }
             }
-        } else {
-            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
         }
     } else {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((1U & (~ ((((((
-                                                   ((0U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))) 
-                                                    | (0x100U 
-                                                       == 
-                                                       ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU))))) 
-                                                   | (1U 
-                                                      == 
-                                                      ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU))))) 
-                                                  | (2U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))) 
-                                                 | (3U 
-                                                    == 
-                                                    ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU))))) 
-                                                | (4U 
-                                                   == 
-                                                   ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU))))) 
-                                               | (5U 
-                                                  == 
-                                                  ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                              | (0x105U 
-                                                 == 
-                                                 ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU)))))))) {
-                                    if ((6U != ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) {
-                                        if ((7U != 
-                                             ((0x3f8U 
+        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            if ((1U & (~ ((((((((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))) 
+                                | (0x100U == ((0x3f8U 
                                                & (vlTOPp->testbench__DOT__imem_data 
                                                   >> 0x16U)) 
                                               | (7U 
                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                        }
-                                    }
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
-                    }
-                }
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
+                                                    >> 0xcU))))) 
+                               | (1U == ((0x3f8U & 
+                                          (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                         | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU))))) 
+                              | (2U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU))))) 
+                             | (3U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0x16U)) 
+                                       | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU))))) 
+                            | (4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0x16U)) 
+                                      | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU))))) 
+                           | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                     | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) 
+                          | (0x105U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))))))) {
+                if ((6U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    if ((7U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
                         vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U != (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
                     }
                 }
             }
         } else {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((1U & (~ ((((((
-                                                   ((0U 
-                                                     == 
-                                                     (7U 
-                                                      & ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU))))) 
-                                                    | (2U 
-                                                       == 
-                                                       (7U 
-                                                        & ((0x3f8U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0x16U)) 
-                                                           | (7U 
-                                                              & (vlTOPp->testbench__DOT__imem_data 
-                                                                 >> 0xcU)))))) 
-                                                   | (3U 
-                                                      == 
-                                                      (7U 
-                                                       & ((0x3f8U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0x16U)) 
-                                                          | (7U 
-                                                             & (vlTOPp->testbench__DOT__imem_data 
-                                                                >> 0xcU)))))) 
-                                                  | (4U 
-                                                     == 
-                                                     (7U 
-                                                      & ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU)))))) 
-                                                 | (6U 
-                                                    == 
-                                                    (7U 
-                                                     & ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))) 
-                                                | (7U 
+            if ((0x63U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+            }
+        }
+    }
+    vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                   >> 0xfU))];
+    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+        if (((((((((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU))))) 
+                   | (2U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0x16U)) 
+                                   | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0xcU)))))) 
+                  | (3U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x16U)) 
+                                  | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0xcU)))))) 
+                 | (4U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))))) 
+                | (6U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU)))))) 
+               | (7U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU)))))) 
+              | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0x16U)) | (7U 
+                                                 & (vlTOPp->testbench__DOT__imem_data 
+                                                    >> 0xcU))))) 
+             | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                  >> 0x16U)) | (7U 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_op 
+                = ((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))))
+                    ? 1U : ((2U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))
+                             ? 7U : ((3U == (7U & (
+                                                   (0x3f8U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0x16U)) 
+                                                   | (7U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0xcU)))))
+                                      ? 8U : ((4U == 
+                                               (7U 
+                                                & ((0x3f8U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0x16U)) 
+                                                   | (7U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0xcU)))))
+                                               ? 9U
+                                               : ((6U 
                                                    == 
                                                    (7U 
                                                     & ((0x3f8U 
@@ -465,58 +373,176 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                                                            >> 0x16U)) 
                                                        | (7U 
                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))))) 
-                                               | (1U 
-                                                  == 
-                                                  ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                              | (5U 
-                                                 == 
-                                                 ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
+                                                             >> 0xcU)))))
+                                                   ? 0xaU
+                                                   : 
+                                                  ((7U 
+                                                    == 
+                                                    (7U 
+                                                     & ((0x3f8U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0x16U)) 
+                                                        | (7U 
+                                                           & (vlTOPp->testbench__DOT__imem_data 
+                                                              >> 0xcU)))))
+                                                    ? 0xbU
+                                                    : 
+                                                   ((1U 
+                                                     == 
+                                                     ((0x3f8U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0x16U)) 
+                                                      | (7U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0xcU))))
+                                                     ? 3U
+                                                     : 4U)))))));
+        } else {
+            if ((0x105U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                vlTOPp->testbench__DOT__dut__DOT__alu_op = 5U;
+            }
+        }
+    } else {
+        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            if (((((((((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU)))) 
+                       | (0x100U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                     | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) 
+                      | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) 
+                     | (2U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU))))) 
+                    | (3U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0x16U)) 
+                              | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0xcU))))) 
+                   | (4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0x16U)) 
+                             | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                      >> 0xcU))))) 
+                  | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) | (0x105U 
+                                                   == 
+                                                   ((0x3f8U 
                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU)))))))) {
-                                    if ((0x105U != 
-                                         ((0x3f8U & 
-                                           (vlTOPp->testbench__DOT__imem_data 
-                                            >> 0x16U)) 
-                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                    }
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
+                                                        >> 0x16U)) 
+                                                    | (7U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0xcU)))))) {
+                vlTOPp->testbench__DOT__dut__DOT__alu_op 
+                    = ((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU))))
+                        ? 1U : ((0x100U == ((0x3f8U 
+                                             & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                            | (7U & 
+                                               (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU))))
+                                 ? 2U : ((1U == ((0x3f8U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     >> 0x16U)) 
+                                                 | (7U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0xcU))))
+                                          ? 3U : ((2U 
+                                                   == 
+                                                   ((0x3f8U 
+                                                     & (vlTOPp->testbench__DOT__imem_data 
+                                                        >> 0x16U)) 
+                                                    | (7U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0xcU))))
+                                                   ? 7U
+                                                   : 
+                                                  ((3U 
+                                                    == 
+                                                    ((0x3f8U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0x16U)) 
+                                                     | (7U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0xcU))))
+                                                    ? 8U
+                                                    : 
+                                                   ((4U 
+                                                     == 
+                                                     ((0x3f8U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0x16U)) 
+                                                      | (7U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0xcU))))
+                                                     ? 9U
+                                                     : 
+                                                    ((5U 
+                                                      == 
+                                                      ((0x3f8U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0x16U)) 
+                                                       | (7U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0xcU))))
+                                                      ? 4U
+                                                      : 5U)))))));
+            } else {
+                if ((6U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                } else {
+                    if ((7U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xbU;
                     }
                 }
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+            }
+        } else {
+            if ((0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                  >> 0xcU)))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
                 } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                    if ((1U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                      >> 0xcU)))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
                     } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U != (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
+                        if ((4U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))) {
+                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
                         } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                            if ((5U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU)))) {
+                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
+                            } else {
+                                if ((6U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU)))) {
+                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
+                                } else {
+                                    if ((7U == (7U 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))) {
+                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -560,409 +586,6 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0xff000U 
                                                   & vlTOPp->testbench__DOT__imem_data));
-    if ((0x40U & vlTOPp->testbench__DOT__imem_data)) {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                          >> 4U)))) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                } else {
-                                    if ((1U == (7U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU)))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                    } else {
-                                        if ((4U == 
-                                             (7U & 
-                                              (vlTOPp->testbench__DOT__imem_data 
-                                               >> 0xcU)))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
-                                        } else {
-                                            if ((5U 
-                                                 == 
-                                                 (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))) {
-                                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
-                                            } else {
-                                                if (
-                                                    (6U 
-                                                     == 
-                                                     (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
-                                                } else {
-                                                    if (
-                                                        (7U 
-                                                         == 
-                                                         (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))) {
-                                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if (((((((((0U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))) 
-                                           | (0x100U 
-                                              == ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU))))) 
-                                          | (1U == 
-                                             ((0x3f8U 
-                                               & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0x16U)) 
-                                              | (7U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) 
-                                         | (2U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                        | (3U == ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU))))) 
-                                       | (4U == ((0x3f8U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x16U)) 
-                                                 | (7U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0xcU))))) 
-                                      | (5U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) 
-                                     | (0x105U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op 
-                                        = ((0U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))
-                                            ? 1U : 
-                                           ((0x100U 
-                                             == ((0x3f8U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x16U)) 
-                                                 | (7U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0xcU))))
-                                             ? 2U : 
-                                            ((1U == 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU))))
-                                              ? 3U : 
-                                             ((2U == 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))
-                                               ? 7U
-                                               : ((3U 
-                                                   == 
-                                                   ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU))))
-                                                   ? 8U
-                                                   : 
-                                                  ((4U 
-                                                    == 
-                                                    ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU))))
-                                                    ? 9U
-                                                    : 
-                                                   ((5U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))
-                                                     ? 4U
-                                                     : 5U)))))));
-                                } else {
-                                    if ((6U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
-                                    } else {
-                                        if ((7U == 
-                                             ((0x3f8U 
-                                               & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0x16U)) 
-                                              | (7U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xbU;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if (((((((((0U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))) 
-                                           | (2U == 
-                                              (7U & 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU)))))) 
-                                          | (3U == 
-                                             (7U & 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))) 
-                                         | (4U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))))) 
-                                        | (6U == (7U 
-                                                  & ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU)))))) 
-                                       | (7U == (7U 
-                                                 & ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU)))))) 
-                                      | (1U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) 
-                                     | (5U == ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op 
-                                        = ((0U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))))
-                                            ? 1U : 
-                                           ((2U == 
-                                             (7U & 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))
-                                             ? 7U : 
-                                            ((3U == 
-                                              (7U & 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU)))))
-                                              ? 8U : 
-                                             ((4U == 
-                                               (7U 
-                                                & ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))))
-                                               ? 9U
-                                               : ((6U 
-                                                   == 
-                                                   (7U 
-                                                    & ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))))
-                                                   ? 0xaU
-                                                   : 
-                                                  ((7U 
-                                                    == 
-                                                    (7U 
-                                                     & ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))
-                                                    ? 0xbU
-                                                    : 
-                                                   ((1U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))
-                                                     ? 3U
-                                                     : 4U)))))));
-                                } else {
-                                    if ((0x105U == 
-                                         ((0x3f8U & 
-                                           (vlTOPp->testbench__DOT__imem_data 
-                                            >> 0x16U)) 
-                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 5U;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
-        }
-    }
-    vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                   >> 0xfU))];
     vlTOPp->testbench__DOT__dut__DOT__imm_i_sext = 
         ((0xfffff000U & (VL_NEGATE_I((IData)((1U & 
                                               (vlTOPp->testbench__DOT__imem_data 
@@ -1010,208 +633,6 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
                                                   (0x1fU 
                                                    & (vlTOPp->testbench__DOT__imem_data 
                                                       >> 0x14U))]);
-    if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
-    } else {
-        if ((8U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-            vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                = ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                    ? 0U : ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                             ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    & vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                 : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    | vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
-                             : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    ^ vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                 : ((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                     < vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                     ? 1U : 0U))));
-        } else {
-            if ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                if ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                    if ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                            = (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                               - vlTOPp->testbench__DOT__dut__DOT__alu_op_b);
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                            = (1U & (vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                                     >> 0x1fU));
-                    } else {
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
-                    }
-                } else {
-                    vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                        = ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? VL_SHIFTRS_III(32,32,32, vlTOPp->testbench__DOT__dut__DOT__alu_op_a, vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : VL_NEGATE_I((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                               >> 0x1fU)))
-                            : ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                   >> vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : 0U));
-                }
-            } else {
-                vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                    = ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                        ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                   << vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : 0U) : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                         - vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
-                        : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                               + vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                            : 0U));
-            }
-        }
-    }
-    vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero = 
-        (0U == vlTOPp->testbench__DOT__dut__DOT__alu_result);
-    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 0U;
-    vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
-                                             + vlTOPp->testbench__DOT__dut__DOT__pc);
-    vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
-    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                  >> 0xcU)))) {
-                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                        = vlTOPp->testbench__DOT__dut__DOT__alu_op_a;
-                } else {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                }
-            } else {
-                if ((3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                      >> 0xcU)))) {
-                        vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                            = vlTOPp->testbench__DOT__dut__DOT__regfile
-                            [(0x1fU & ((vlTOPp->testbench__DOT__imem_data 
-                                        >> 0xfU) + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext))];
-                    } else {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    }
-                } else {
-                    if ((0x13U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                        if ((0x33U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                            if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                                vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                                    = vlTOPp->testbench__DOT__dut__DOT__npc;
-                                vlTOPp->testbench__DOT__dut__DOT__npc 
-                                    = (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                       + VL_EXTENDS_II(32,21, vlTOPp->testbench__DOT__dut__DOT__imm_j));
-                            } else {
-                                if ((0x67U == (0x7fU 
-                                               & vlTOPp->testbench__DOT__imem_data))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                                        = vlTOPp->testbench__DOT__dut__DOT__npc;
-                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                        = (0xfffffffeU 
-                                           & (vlTOPp->testbench__DOT__dut__DOT__regfile
-                                              [(0x1fU 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xfU))] 
-                                              + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext));
-                                } else {
-                                    if ((0x4000U & vlTOPp->testbench__DOT__imem_data)) {
-                                        if ((0x2000U 
-                                             & vlTOPp->testbench__DOT__imem_data)) {
-                                            if ((0x1000U 
-                                                 & vlTOPp->testbench__DOT__imem_data)) {
-                                                if (
-                                                    (1U 
-                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            } else {
-                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            }
-                                        } else {
-                                            if ((0x1000U 
-                                                 & vlTOPp->testbench__DOT__imem_data)) {
-                                                if (
-                                                    (1U 
-                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            } else {
-                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        if ((0x2000U 
-                                             & vlTOPp->testbench__DOT__imem_data)) {
-                                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                        } else {
-                                            if ((0x1000U 
-                                                 & vlTOPp->testbench__DOT__imem_data)) {
-                                                if (
-                                                    (1U 
-                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            } else {
-                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
-                                                        = 
-                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
-                                                         + 
-                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-    }
-    if ((0U != (3U & vlTOPp->testbench__DOT__dut__DOT__npc))) {
-        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-        vlTOPp->testbench__DOT__dut__DOT__npc = (0xfffffffcU 
-                                                 & vlTOPp->testbench__DOT__dut__DOT__pc);
-    }
 }
 
 void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
@@ -1235,252 +656,171 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                | vlTOPp->testbench__DOT__mem
                                                [(0xfffcU 
                                                  & vlTOPp->testbench__DOT__dut__DOT__pc)])));
-    vlTOPp->testbench__DOT__dut__DOT__regwrite = 0U;
-    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                  >> 0xcU)))) {
-                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                }
-            } else {
-                if ((3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                      >> 0xcU)))) {
-                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                    }
-                } else {
-                    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                    } else {
-                        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                            vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                        } else {
-                            if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                                vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                            } else {
-                                if ((0x67U == (0x7fU 
-                                               & vlTOPp->testbench__DOT__imem_data))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    if ((0x40U & vlTOPp->testbench__DOT__imem_data)) {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
+    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+        if ((1U & (~ ((((((((0U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU))))) 
+                            | (2U == (7U & ((0x3f8U 
+                                             & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                            | (7U & 
+                                               (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU)))))) 
+                           | (3U == (7U & ((0x3f8U 
+                                            & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0x16U)) 
+                                           | (7U & 
+                                              (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU)))))) 
+                          | (4U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))) 
+                         | (6U == (7U & ((0x3f8U & 
+                                          (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                         | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU)))))) 
+                        | (7U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))))) 
+                       | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU))))) 
+                      | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU)))))))) {
+            if ((0x105U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
                 vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & (~ vlTOPp->testbench__DOT__imem_data))) {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
-                    }
-                }
             }
-        } else {
-            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
         }
     } else {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((1U & (~ ((((((
-                                                   ((0U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))) 
-                                                    | (0x100U 
-                                                       == 
-                                                       ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU))))) 
-                                                   | (1U 
-                                                      == 
-                                                      ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU))))) 
-                                                  | (2U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))) 
-                                                 | (3U 
-                                                    == 
-                                                    ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU))))) 
-                                                | (4U 
-                                                   == 
-                                                   ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU))))) 
-                                               | (5U 
-                                                  == 
-                                                  ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                              | (0x105U 
-                                                 == 
-                                                 ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU)))))))) {
-                                    if ((6U != ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) {
-                                        if ((7U != 
-                                             ((0x3f8U 
+        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            if ((1U & (~ ((((((((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))) 
+                                | (0x100U == ((0x3f8U 
                                                & (vlTOPp->testbench__DOT__imem_data 
                                                   >> 0x16U)) 
                                               | (7U 
                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                        }
-                                    }
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
-                    }
-                }
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
+                                                    >> 0xcU))))) 
+                               | (1U == ((0x3f8U & 
+                                          (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                         | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU))))) 
+                              | (2U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU))))) 
+                             | (3U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0x16U)) 
+                                       | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU))))) 
+                            | (4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0x16U)) 
+                                      | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                               >> 0xcU))))) 
+                           | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                     | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) 
+                          | (0x105U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0x16U)) 
+                                        | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                 >> 0xcU)))))))) {
+                if ((6U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    if ((7U != ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
                         vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U != (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
                     }
                 }
             }
         } else {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                    } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((1U & (~ ((((((
-                                                   ((0U 
-                                                     == 
-                                                     (7U 
-                                                      & ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU))))) 
-                                                    | (2U 
-                                                       == 
-                                                       (7U 
-                                                        & ((0x3f8U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0x16U)) 
-                                                           | (7U 
-                                                              & (vlTOPp->testbench__DOT__imem_data 
-                                                                 >> 0xcU)))))) 
-                                                   | (3U 
-                                                      == 
-                                                      (7U 
-                                                       & ((0x3f8U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0x16U)) 
-                                                          | (7U 
-                                                             & (vlTOPp->testbench__DOT__imem_data 
-                                                                >> 0xcU)))))) 
-                                                  | (4U 
-                                                     == 
-                                                     (7U 
-                                                      & ((0x3f8U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0x16U)) 
-                                                         | (7U 
-                                                            & (vlTOPp->testbench__DOT__imem_data 
-                                                               >> 0xcU)))))) 
-                                                 | (6U 
-                                                    == 
-                                                    (7U 
-                                                     & ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))) 
-                                                | (7U 
+            if ((0x63U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+            }
+        }
+    }
+    vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
+        [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                   >> 0xfU))];
+    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+        if (((((((((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU))))) 
+                   | (2U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0x16U)) 
+                                   | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0xcU)))))) 
+                  | (3U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x16U)) 
+                                  | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0xcU)))))) 
+                 | (4U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))))) 
+                | (6U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU)))))) 
+               | (7U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU)))))) 
+              | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0x16U)) | (7U 
+                                                 & (vlTOPp->testbench__DOT__imem_data 
+                                                    >> 0xcU))))) 
+             | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                  >> 0x16U)) | (7U 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_op 
+                = ((0U == (7U & ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                 | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))))
+                    ? 1U : ((2U == (7U & ((0x3f8U & 
+                                           (vlTOPp->testbench__DOT__imem_data 
+                                            >> 0x16U)) 
+                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))))
+                             ? 7U : ((3U == (7U & (
+                                                   (0x3f8U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0x16U)) 
+                                                   | (7U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0xcU)))))
+                                      ? 8U : ((4U == 
+                                               (7U 
+                                                & ((0x3f8U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0x16U)) 
+                                                   | (7U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0xcU)))))
+                                               ? 9U
+                                               : ((6U 
                                                    == 
                                                    (7U 
                                                     & ((0x3f8U 
@@ -1488,58 +828,176 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                            >> 0x16U)) 
                                                        | (7U 
                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))))) 
-                                               | (1U 
-                                                  == 
-                                                  ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                              | (5U 
-                                                 == 
-                                                 ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
+                                                             >> 0xcU)))))
+                                                   ? 0xaU
+                                                   : 
+                                                  ((7U 
+                                                    == 
+                                                    (7U 
+                                                     & ((0x3f8U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0x16U)) 
+                                                        | (7U 
+                                                           & (vlTOPp->testbench__DOT__imem_data 
+                                                              >> 0xcU)))))
+                                                    ? 0xbU
+                                                    : 
+                                                   ((1U 
+                                                     == 
+                                                     ((0x3f8U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0x16U)) 
+                                                      | (7U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0xcU))))
+                                                     ? 3U
+                                                     : 4U)))))));
+        } else {
+            if ((0x105U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                vlTOPp->testbench__DOT__dut__DOT__alu_op = 5U;
+            }
+        }
+    } else {
+        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            if (((((((((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU)))) 
+                       | (0x100U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                     | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) 
+                      | (1U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) 
+                     | (2U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU))))) 
+                    | (3U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0x16U)) 
+                              | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0xcU))))) 
+                   | (4U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0x16U)) 
+                             | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                      >> 0xcU))))) 
+                  | (5U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) | (0x105U 
+                                                   == 
+                                                   ((0x3f8U 
                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU)))))))) {
-                                    if ((0x105U != 
-                                         ((0x3f8U & 
-                                           (vlTOPp->testbench__DOT__imem_data 
-                                            >> 0x16U)) 
-                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                    }
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
-                        } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                        }
+                                                        >> 0x16U)) 
+                                                    | (7U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0xcU)))))) {
+                vlTOPp->testbench__DOT__dut__DOT__alu_op 
+                    = ((0U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0x16U)) 
+                               | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                        >> 0xcU))))
+                        ? 1U : ((0x100U == ((0x3f8U 
+                                             & (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0x16U)) 
+                                            | (7U & 
+                                               (vlTOPp->testbench__DOT__imem_data 
+                                                >> 0xcU))))
+                                 ? 2U : ((1U == ((0x3f8U 
+                                                  & (vlTOPp->testbench__DOT__imem_data 
+                                                     >> 0x16U)) 
+                                                 | (7U 
+                                                    & (vlTOPp->testbench__DOT__imem_data 
+                                                       >> 0xcU))))
+                                          ? 3U : ((2U 
+                                                   == 
+                                                   ((0x3f8U 
+                                                     & (vlTOPp->testbench__DOT__imem_data 
+                                                        >> 0x16U)) 
+                                                    | (7U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0xcU))))
+                                                   ? 7U
+                                                   : 
+                                                  ((3U 
+                                                    == 
+                                                    ((0x3f8U 
+                                                      & (vlTOPp->testbench__DOT__imem_data 
+                                                         >> 0x16U)) 
+                                                     | (7U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0xcU))))
+                                                    ? 8U
+                                                    : 
+                                                   ((4U 
+                                                     == 
+                                                     ((0x3f8U 
+                                                       & (vlTOPp->testbench__DOT__imem_data 
+                                                          >> 0x16U)) 
+                                                      | (7U 
+                                                         & (vlTOPp->testbench__DOT__imem_data 
+                                                            >> 0xcU))))
+                                                     ? 9U
+                                                     : 
+                                                    ((5U 
+                                                      == 
+                                                      ((0x3f8U 
+                                                        & (vlTOPp->testbench__DOT__imem_data 
+                                                           >> 0x16U)) 
+                                                       | (7U 
+                                                          & (vlTOPp->testbench__DOT__imem_data 
+                                                             >> 0xcU))))
+                                                      ? 4U
+                                                      : 5U)))))));
+            } else {
+                if ((6U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                       >> 0x16U)) | 
+                            (7U & (vlTOPp->testbench__DOT__imem_data 
+                                   >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
+                } else {
+                    if ((7U == ((0x3f8U & (vlTOPp->testbench__DOT__imem_data 
+                                           >> 0x16U)) 
+                                | (7U & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xbU;
                     }
                 }
-            } else {
-                if ((8U & vlTOPp->testbench__DOT__imem_data)) {
-                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+            }
+        } else {
+            if ((0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                  >> 0xcU)))) {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
                 } else {
-                    if ((4U & vlTOPp->testbench__DOT__imem_data)) {
-                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                    if ((1U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                      >> 0xcU)))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
                     } else {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U != (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                                }
-                            } else {
-                                vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
-                            }
+                        if ((4U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xcU)))) {
+                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
                         } else {
-                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                            if ((5U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU)))) {
+                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
+                            } else {
+                                if ((6U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU)))) {
+                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
+                                } else {
+                                    if ((7U == (7U 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xcU)))) {
+                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1583,409 +1041,6 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                 & vlTOPp->testbench__DOT__dut__DOT__imm_j) 
                                                | (0xff000U 
                                                   & vlTOPp->testbench__DOT__imem_data));
-    if ((0x40U & vlTOPp->testbench__DOT__imem_data)) {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                          >> 4U)))) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((0U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                } else {
-                                    if ((1U == (7U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU)))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                    } else {
-                                        if ((4U == 
-                                             (7U & 
-                                              (vlTOPp->testbench__DOT__imem_data 
-                                               >> 0xcU)))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
-                                        } else {
-                                            if ((5U 
-                                                 == 
-                                                 (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))) {
-                                                vlTOPp->testbench__DOT__dut__DOT__alu_op = 7U;
-                                            } else {
-                                                if (
-                                                    (6U 
-                                                     == 
-                                                     (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))) {
-                                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
-                                                } else {
-                                                    if (
-                                                        (7U 
-                                                         == 
-                                                         (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))) {
-                                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 8U;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if ((0x20U & vlTOPp->testbench__DOT__imem_data)) {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if (((((((((0U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))) 
-                                           | (0x100U 
-                                              == ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU))))) 
-                                          | (1U == 
-                                             ((0x3f8U 
-                                               & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0x16U)) 
-                                              | (7U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) 
-                                         | (2U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))) 
-                                        | (3U == ((0x3f8U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0x16U)) 
-                                                  | (7U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0xcU))))) 
-                                       | (4U == ((0x3f8U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x16U)) 
-                                                 | (7U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0xcU))))) 
-                                      | (5U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) 
-                                     | (0x105U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op 
-                                        = ((0U == (
-                                                   (0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU))))
-                                            ? 1U : 
-                                           ((0x100U 
-                                             == ((0x3f8U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0x16U)) 
-                                                 | (7U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0xcU))))
-                                             ? 2U : 
-                                            ((1U == 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU))))
-                                              ? 3U : 
-                                             ((2U == 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))
-                                               ? 7U
-                                               : ((3U 
-                                                   == 
-                                                   ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU))))
-                                                   ? 8U
-                                                   : 
-                                                  ((4U 
-                                                    == 
-                                                    ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU))))
-                                                    ? 9U
-                                                    : 
-                                                   ((5U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))
-                                                     ? 4U
-                                                     : 5U)))))));
-                                } else {
-                                    if ((6U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xaU;
-                                    } else {
-                                        if ((7U == 
-                                             ((0x3f8U 
-                                               & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0x16U)) 
-                                              | (7U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0xcU))))) {
-                                            vlTOPp->testbench__DOT__dut__DOT__alu_op = 0xbU;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if ((0x10U & vlTOPp->testbench__DOT__imem_data)) {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if (((((((((0U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))) 
-                                           | (2U == 
-                                              (7U & 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU)))))) 
-                                          | (3U == 
-                                             (7U & 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))) 
-                                         | (4U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))))) 
-                                        | (6U == (7U 
-                                                  & ((0x3f8U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0x16U)) 
-                                                     | (7U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0xcU)))))) 
-                                       | (7U == (7U 
-                                                 & ((0x3f8U 
-                                                     & (vlTOPp->testbench__DOT__imem_data 
-                                                        >> 0x16U)) 
-                                                    | (7U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0xcU)))))) 
-                                      | (1U == ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU))))) 
-                                     | (5U == ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op 
-                                        = ((0U == (7U 
-                                                   & ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU)))))
-                                            ? 1U : 
-                                           ((2U == 
-                                             (7U & 
-                                              ((0x3f8U 
-                                                & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0x16U)) 
-                                               | (7U 
-                                                  & (vlTOPp->testbench__DOT__imem_data 
-                                                     >> 0xcU)))))
-                                             ? 7U : 
-                                            ((3U == 
-                                              (7U & 
-                                               ((0x3f8U 
-                                                 & (vlTOPp->testbench__DOT__imem_data 
-                                                    >> 0x16U)) 
-                                                | (7U 
-                                                   & (vlTOPp->testbench__DOT__imem_data 
-                                                      >> 0xcU)))))
-                                              ? 8U : 
-                                             ((4U == 
-                                               (7U 
-                                                & ((0x3f8U 
-                                                    & (vlTOPp->testbench__DOT__imem_data 
-                                                       >> 0x16U)) 
-                                                   | (7U 
-                                                      & (vlTOPp->testbench__DOT__imem_data 
-                                                         >> 0xcU)))))
-                                               ? 9U
-                                               : ((6U 
-                                                   == 
-                                                   (7U 
-                                                    & ((0x3f8U 
-                                                        & (vlTOPp->testbench__DOT__imem_data 
-                                                           >> 0x16U)) 
-                                                       | (7U 
-                                                          & (vlTOPp->testbench__DOT__imem_data 
-                                                             >> 0xcU)))))
-                                                   ? 0xaU
-                                                   : 
-                                                  ((7U 
-                                                    == 
-                                                    (7U 
-                                                     & ((0x3f8U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0x16U)) 
-                                                        | (7U 
-                                                           & (vlTOPp->testbench__DOT__imem_data 
-                                                              >> 0xcU)))))
-                                                    ? 0xbU
-                                                    : 
-                                                   ((1U 
-                                                     == 
-                                                     ((0x3f8U 
-                                                       & (vlTOPp->testbench__DOT__imem_data 
-                                                          >> 0x16U)) 
-                                                      | (7U 
-                                                         & (vlTOPp->testbench__DOT__imem_data 
-                                                            >> 0xcU))))
-                                                     ? 3U
-                                                     : 4U)))))));
-                                } else {
-                                    if ((0x105U == 
-                                         ((0x3f8U & 
-                                           (vlTOPp->testbench__DOT__imem_data 
-                                            >> 0x16U)) 
-                                          | (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                   >> 0xcU))))) {
-                                        vlTOPp->testbench__DOT__dut__DOT__alu_op = 5U;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                              >> 3U)))) {
-                    if ((1U & (~ (vlTOPp->testbench__DOT__imem_data 
-                                  >> 2U)))) {
-                        if ((2U & vlTOPp->testbench__DOT__imem_data)) {
-                            if ((1U & vlTOPp->testbench__DOT__imem_data)) {
-                                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                                  >> 0xcU)))) {
-                                    vlTOPp->testbench__DOT__dut__DOT__alu_op = 2U;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-            vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
-        }
-    }
-    vlTOPp->testbench__DOT__dut__DOT__alu_op_a = vlTOPp->testbench__DOT__dut__DOT__regfile
-        [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                   >> 0xfU))];
     vlTOPp->testbench__DOT__dut__DOT__imm_i_sext = 
         ((0xfffff000U & (VL_NEGATE_I((IData)((1U & 
                                               (vlTOPp->testbench__DOT__imem_data 
@@ -2033,68 +1088,8 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                   (0x1fU 
                                                    & (vlTOPp->testbench__DOT__imem_data 
                                                       >> 0x14U))]);
-    if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
-    } else {
-        if ((8U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-            vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                = ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                    ? 0U : ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                             ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    & vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                 : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    | vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
-                             : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                    ^ vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                 : ((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                     < vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                     ? 1U : 0U))));
-        } else {
-            if ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                if ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                    if ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                            = (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                               - vlTOPp->testbench__DOT__dut__DOT__alu_op_b);
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                            = (1U & (vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                                     >> 0x1fU));
-                    } else {
-                        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
-                    }
-                } else {
-                    vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                        = ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? VL_SHIFTRS_III(32,32,32, vlTOPp->testbench__DOT__dut__DOT__alu_op_a, vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : VL_NEGATE_I((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                               >> 0x1fU)))
-                            : ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                   >> vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : 0U));
-                }
-            } else {
-                vlTOPp->testbench__DOT__dut__DOT__alu_result 
-                    = ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                        ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                   << vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                                : 0U) : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                                         - vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
-                        : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
-                            ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
-                               + vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
-                            : 0U));
-            }
-        }
-    }
-    vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero = 
-        (0U == vlTOPp->testbench__DOT__dut__DOT__alu_result);
     vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 0U;
+    vlTOPp->testbench__DOT__dut__DOT__regwrite = 0U;
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
     vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
@@ -2106,30 +1101,55 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
            | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
           | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
          | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        if ((0U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+        if ((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+        } else {
             if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                  >> 0xcU)))) {
-                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                        = vlTOPp->testbench__DOT__dut__DOT__alu_op_a;
+                if (VL_UNLIKELY((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__dmem_wr_data 
+                        = vlTOPp->testbench__DOT__dut__DOT__alu_op_b;
+                    vlTOPp->testbench__DOT__dut__DOT__dmem_wr_addr 
+                        = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                     >> 0xfU)) + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
+                    VL_WRITEF("sw 0x%08x to = 0x%08x\n",
+                              32,vlTOPp->testbench__DOT__dut__DOT__dmem_wr_data,
+                              32,vlTOPp->testbench__DOT__dut__DOT__dmem_wr_addr);
                 } else {
                     vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
                 }
             } else {
                 if ((3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                    if ((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
-                                      >> 0xcU)))) {
+                    if (VL_UNLIKELY((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                        vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr 
+                            = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xfU)) 
+                               + ((0xfe0U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x14U)) 
+                                  | (0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 7U))));
+                        vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data 
+                            = vlTOPp->testbench__DOT__dut__DOT__dmem
+                            [(0x3ffU & vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr)];
                         vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
-                            = vlTOPp->testbench__DOT__dut__DOT__regfile
-                            [(0x1fU & ((vlTOPp->testbench__DOT__imem_data 
-                                        >> 0xfU) + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext))];
+                            = vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data;
+                        VL_WRITEF("lw from 0x%08x = 0x%08x\n",
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr,
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data);
                     } else {
                         vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
                     }
                 } else {
-                    if ((0x13U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
-                        if ((0x33U != (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                    } else {
+                        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                            vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                        } else {
                             if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                                vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
                                 vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
                                     = vlTOPp->testbench__DOT__dut__DOT__npc;
                                 vlTOPp->testbench__DOT__dut__DOT__npc 
@@ -2138,6 +1158,7 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                             } else {
                                 if ((0x67U == (0x7fU 
                                                & vlTOPp->testbench__DOT__imem_data))) {
+                                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
                                     vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
                                         = vlTOPp->testbench__DOT__dut__DOT__npc;
                                     vlTOPp->testbench__DOT__dut__DOT__npc 
@@ -2235,6 +1256,302 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
         vlTOPp->testbench__DOT__dut__DOT__npc = (0xfffffffcU 
                                                  & vlTOPp->testbench__DOT__dut__DOT__pc);
     }
+    if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
+    } else {
+        if ((8U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                = ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                    ? 0U : ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                             ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    & vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                 : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    | vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
+                             : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    ^ vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                 : ((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                     < vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                     ? 1U : 0U))));
+        } else {
+            if ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                if ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                    if ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                            = (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                               - vlTOPp->testbench__DOT__dut__DOT__alu_op_b);
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                            = (1U & (vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                                     >> 0x1fU));
+                    } else {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
+                    }
+                } else {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                        = ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? VL_SHIFTRS_III(32,32,32, vlTOPp->testbench__DOT__dut__DOT__alu_op_a, vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : VL_NEGATE_I((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                               >> 0x1fU)))
+                            : ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                   >> vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : 0U));
+                }
+            } else {
+                vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                    = ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                        ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                   << vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : 0U) : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                         - vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
+                        : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                               + vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                            : 0U));
+            }
+        }
+    }
+    vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero = 
+        (0U == vlTOPp->testbench__DOT__dut__DOT__alu_result);
+}
+
+VL_INLINE_OPT void Vtestbench::_combo__TOP__5(Vtestbench__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtestbench::_combo__TOP__5\n"); );
+    Vtestbench* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 0U;
+    vlTOPp->testbench__DOT__dut__DOT__regwrite = 0U;
+    vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
+                                             + vlTOPp->testbench__DOT__dut__DOT__pc);
+    vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
+    if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
+               | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+              | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+             | (0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+            | (0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+           | (0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+          | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+         | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
+        if ((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_op = 1U;
+        } else {
+            if ((0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                if (VL_UNLIKELY((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xcU))))) {
+                    vlTOPp->testbench__DOT__dut__DOT__dmem_wr_data 
+                        = vlTOPp->testbench__DOT__dut__DOT__alu_op_b;
+                    vlTOPp->testbench__DOT__dut__DOT__dmem_wr_addr 
+                        = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                     >> 0xfU)) + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
+                    VL_WRITEF("sw 0x%08x to = 0x%08x\n",
+                              32,vlTOPp->testbench__DOT__dut__DOT__dmem_wr_data,
+                              32,vlTOPp->testbench__DOT__dut__DOT__dmem_wr_addr);
+                } else {
+                    vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                }
+            } else {
+                if ((3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    if (VL_UNLIKELY((2U == (7U & (vlTOPp->testbench__DOT__imem_data 
+                                                  >> 0xcU))))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                        vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr 
+                            = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                         >> 0xfU)) 
+                               + ((0xfe0U & (vlTOPp->testbench__DOT__imem_data 
+                                             >> 0x14U)) 
+                                  | (0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 7U))));
+                        vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data 
+                            = vlTOPp->testbench__DOT__dut__DOT__dmem
+                            [(0x3ffU & vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr)];
+                        vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                            = vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data;
+                        VL_WRITEF("lw from 0x%08x = 0x%08x\n",
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr,
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data);
+                    } else {
+                        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                    }
+                } else {
+                    if ((0x13U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                    } else {
+                        if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                            vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                        } else {
+                            if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                                vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                                vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                                    = vlTOPp->testbench__DOT__dut__DOT__npc;
+                                vlTOPp->testbench__DOT__dut__DOT__npc 
+                                    = (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                       + VL_EXTENDS_II(32,21, vlTOPp->testbench__DOT__dut__DOT__imm_j));
+                            } else {
+                                if ((0x67U == (0x7fU 
+                                               & vlTOPp->testbench__DOT__imem_data))) {
+                                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                                    vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
+                                        = vlTOPp->testbench__DOT__dut__DOT__npc;
+                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                        = (0xfffffffeU 
+                                           & (vlTOPp->testbench__DOT__dut__DOT__regfile
+                                              [(0x1fU 
+                                                & (vlTOPp->testbench__DOT__imem_data 
+                                                   >> 0xfU))] 
+                                              + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext));
+                                } else {
+                                    if ((0x4000U & vlTOPp->testbench__DOT__imem_data)) {
+                                        if ((0x2000U 
+                                             & vlTOPp->testbench__DOT__imem_data)) {
+                                            if ((0x1000U 
+                                                 & vlTOPp->testbench__DOT__imem_data)) {
+                                                if (
+                                                    (1U 
+                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            } else {
+                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            }
+                                        } else {
+                                            if ((0x1000U 
+                                                 & vlTOPp->testbench__DOT__imem_data)) {
+                                                if (
+                                                    (1U 
+                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            } else {
+                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        if ((0x2000U 
+                                             & vlTOPp->testbench__DOT__imem_data)) {
+                                            vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+                                        } else {
+                                            if ((0x1000U 
+                                                 & vlTOPp->testbench__DOT__imem_data)) {
+                                                if (
+                                                    (1U 
+                                                     & (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero)))) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            } else {
+                                                if (vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero) {
+                                                    vlTOPp->testbench__DOT__dut__DOT__npc 
+                                                        = 
+                                                        (vlTOPp->testbench__DOT__dut__DOT__pc 
+                                                         + 
+                                                         VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b)));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+    }
+    if ((0U != (3U & vlTOPp->testbench__DOT__dut__DOT__npc))) {
+        vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
+        vlTOPp->testbench__DOT__dut__DOT__npc = (0xfffffffcU 
+                                                 & vlTOPp->testbench__DOT__dut__DOT__pc);
+    }
+    if ((0x10U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
+    } else {
+        if ((8U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+            vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                = ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                    ? 0U : ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                             ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    & vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                 : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    | vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
+                             : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                                 ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                    ^ vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                 : ((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                     < vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                     ? 1U : 0U))));
+        } else {
+            if ((4U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                if ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                    if ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))) {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                            = (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                               - vlTOPp->testbench__DOT__dut__DOT__alu_op_b);
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                            = (1U & (vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                                     >> 0x1fU));
+                    } else {
+                        vlTOPp->testbench__DOT__dut__DOT__alu_result = 0U;
+                    }
+                } else {
+                    vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                        = ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? VL_SHIFTRS_III(32,32,32, vlTOPp->testbench__DOT__dut__DOT__alu_op_a, vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : VL_NEGATE_I((vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                               >> 0x1fU)))
+                            : ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                   >> vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : 0U));
+                }
+            } else {
+                vlTOPp->testbench__DOT__dut__DOT__alu_result 
+                    = ((2U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                        ? ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? ((0x1fU >= vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                   << vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                                : 0U) : (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                                         - vlTOPp->testbench__DOT__dut__DOT__alu_op_b))
+                        : ((1U & (IData)(vlTOPp->testbench__DOT__dut__DOT__alu_op))
+                            ? (vlTOPp->testbench__DOT__dut__DOT__alu_op_a 
+                               + vlTOPp->testbench__DOT__dut__DOT__alu_op_b)
+                            : 0U));
+            }
+        }
+    }
+    vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero = 
+        (0U == vlTOPp->testbench__DOT__dut__DOT__alu_result);
 }
 
 void Vtestbench::_eval(Vtestbench__Syms* __restrict vlSymsp) {
@@ -2245,6 +1562,8 @@ void Vtestbench::_eval(Vtestbench__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__3(vlSymsp);
         vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
     }
+    vlTOPp->_combo__TOP__5(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
     // Final
     vlTOPp->__Vclklast__TOP__clock = vlTOPp->clock;
 }
@@ -2280,6 +1599,15 @@ VL_INLINE_OPT QData Vtestbench::_change_request(Vtestbench__Syms* __restrict vlS
     // Body
     // Change detection
     QData __req = false;  // Logically a bool
+    __req |= ((vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero ^ vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_eq_zero)
+         | (vlTOPp->testbench__DOT__dut__DOT__alu_result ^ vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_result));
+    VL_DEBUG_IF( if(__req && ((vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero ^ vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_eq_zero))) VL_DBG_MSGF("        CHANGE: rv3608c.sv:116: testbench.dut.alu_eq_zero\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->testbench__DOT__dut__DOT__alu_result ^ vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_result))) VL_DBG_MSGF("        CHANGE: rv3608c.sv:117: testbench.dut.alu_result\n"); );
+    // Final
+    vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_eq_zero 
+        = vlTOPp->testbench__DOT__dut__DOT__alu_eq_zero;
+    vlTOPp->__Vchglast__TOP__testbench__DOT__dut__DOT__alu_result 
+        = vlTOPp->testbench__DOT__dut__DOT__alu_result;
     return __req;
 }
 
@@ -2305,6 +1633,14 @@ void Vtestbench::_ctor_var_reset() {
             testbench__DOT__mem[__Vi0] = VL_RAND_RESET_I(8);
     }}
     testbench__DOT__cycles = VL_RAND_RESET_I(32);
+    { int __Vi0=0; for (; __Vi0<1024; ++__Vi0) {
+            testbench__DOT__dut__DOT__dmem[__Vi0] = VL_RAND_RESET_I(32);
+    }}
+    testbench__DOT__dut__DOT__dmem_wr_enable = VL_RAND_RESET_I(1);
+    testbench__DOT__dut__DOT__dmem_wr_addr = VL_RAND_RESET_I(32);
+    testbench__DOT__dut__DOT__dmem_wr_data = VL_RAND_RESET_I(32);
+    testbench__DOT__dut__DOT__dmem_rd_addr = VL_RAND_RESET_I(32);
+    testbench__DOT__dut__DOT__dmem_rd_data = VL_RAND_RESET_I(32);
     testbench__DOT__dut__DOT__d_rd = VL_RAND_RESET_I(5);
     testbench__DOT__dut__DOT__d_x0 = VL_RAND_RESET_I(32);
     testbench__DOT__dut__DOT__d_x1 = VL_RAND_RESET_I(32);
@@ -2330,5 +1666,7 @@ void Vtestbench::_ctor_var_reset() {
     testbench__DOT__dut__DOT__regwrite = VL_RAND_RESET_I(1);
     testbench__DOT__dut__DOT__npc = VL_RAND_RESET_I(32);
     testbench__DOT__dut__DOT__rfilewdata = VL_RAND_RESET_I(32);
+    __Vchglast__TOP__testbench__DOT__dut__DOT__alu_eq_zero = VL_RAND_RESET_I(1);
+    __Vchglast__TOP__testbench__DOT__dut__DOT__alu_result = VL_RAND_RESET_I(32);
     __Vm_traceActivity = 0;
 }
