@@ -209,6 +209,8 @@ module rv3608b (
                 // LAB implement JAL here
 
                 // JAL saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the program counter, and jumps to that address.
+               
+                    regwrite = 1;
                 rfilewdata = npc;
                 npc = pc + imm_j_sext; 
             end
@@ -217,6 +219,8 @@ module rv3608b (
                 // LAB implement JALR here
 
                 //JALR saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the source register, and jumps to that (even) address.
+                
+                    regwrite = 1;
                 rfilewdata = npc;
                  npc = (regfile[insn_rs1] + imm_i_sext) & ~32'b1;
           

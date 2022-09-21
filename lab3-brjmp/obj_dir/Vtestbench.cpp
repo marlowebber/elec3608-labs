@@ -195,6 +195,14 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__3(Vtestbench__Syms* __restrict vlS
         } else {
             if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
                 vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+            } else {
+                if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                } else {
+                    if ((0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                    }
+                }
             }
         }
     }
@@ -817,6 +825,14 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
         } else {
             if ((0x33U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
                 vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+            } else {
+                if ((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                    vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                } else {
+                    if ((0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) {
+                        vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
+                    }
+                }
             }
         }
     }
