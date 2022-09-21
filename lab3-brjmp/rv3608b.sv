@@ -249,13 +249,13 @@ module rv3608b (
 
 
 					3'b 101 /* BGE  */: begin 
-                        if (alu_eq_zero ) begin
+                        if (!alu_eq_zero ) begin
                             npc = pc + imm_b_sext;
                         end
                     end
 
 					3'b 111 /* BGEU */: begin 
-                        if (alu_eq_zero ) begin
+                        if (!alu_eq_zero ) begin
                                 npc = pc + imm_b_sext;
                         end
                     end
