@@ -150,10 +150,10 @@ module rv3608b (
                     // LAB need to map branches to ALU operations here
 					3'b 000 /* BEQ  */: alu_op = `ALU_SUB;
 					3'b 001 /* BNE  */: alu_op = `ALU_SUB;
-					3'b 100 /* BLT  */: alu_op = `ALU_SUB;
-					3'b 101 /* BGE  */: alu_op = `ALU_SUB;
-					3'b 110 /* BLTU */: alu_op = `ALU_SUB;
-					3'b 111 /* BGEU */: alu_op = `ALU_SUB;
+					3'b 100 /* BLT  */: alu_op = `ALU_SLT;
+					3'b 101 /* BGE  */: alu_op = `ALU_SLT;
+					3'b 110 /* BLTU */: alu_op = `ALU_SLTU;
+					3'b 111 /* BGEU */: alu_op = `ALU_SLTU;
                 endcase
             end
 
@@ -237,7 +237,7 @@ module rv3608b (
                     // branch greater than unsigned
 
 					3'b 100 /* BLT  */: begin 
-                        if (alu_result[31]) begin
+                        if (alu_eq_zero) begin
                             npc = pc + imm_b_sext;
                         end
                     end

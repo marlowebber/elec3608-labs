@@ -25,8 +25,8 @@ module alu_marlo(
     always_comb begin
         case (alu_function)
 
-            `ALU_ADD:   result = op_a + op_b;
-            `ALU_SUB:   result = op_a - op_b;
+            `ALU_ADD:   result = op_a_signed + op_b_signed;
+            `ALU_SUB:   result = op_a_signed - op_b_signed;
 
 
             `ALU_XOR:   result = op_a ^ op_b;
