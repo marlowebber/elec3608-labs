@@ -110,6 +110,7 @@ module rv3608c (
     wire signed [31:0] alu_op_b_signed;
     assign alu_op_a_signed = alu_op_a;
     assign alu_op_b_signed = alu_op_b;
+    wire [31:0] storeaddr;
 
     // Code below sets alu_op
     always_comb begin
@@ -204,6 +205,10 @@ module rv3608c (
             `OPCODE_STORE: begin
                 case ( insn_funct3 )
                     3'b 010 /* SW  */: begin
+                        regwrite = 1;
+                        storeaddr = insn_rs1 + imm_i_sext;
+                        rfilewdata = insn_rs2;//regfile[insn_rs1 + imm_i_sext];
+
                     end
                     default: illegalinsn = 1;
 				endcase
@@ -213,7 +218,7 @@ module rv3608c (
 				case ( insn_funct3 )
                     3'b 010 /* LW  */: begin
                         regwrite = 1;
-                        rfilewdata = imm_i_sext + pc;
+                        rfilewdata = regfile[insn_rs1 + imm_i_sext];
                     end
                     default: illegalinsn = 1;
 				endcase
@@ -321,8 +326,17 @@ module rv3608c (
 				trapped <= 1;
 	
         pc <= npc;
-        if (regwrite && insn_rd > 0) 
-            regfile[insn_rd] <= rfilewdata;
+        if (insn_opcode == OPCODE_STORE) begin
+            if (regwrite)  begin
+                regfile[storeaddr] <= rfilewdata;
+            end
+        end
+        else begin
+            if (regwrite && insn_rd > 0)  begin
+                regfile[insn_rd] <= rfilewdata;
+            end
+
+        end
         x10 <= regfile[10];
 
     	end
