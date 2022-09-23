@@ -234,14 +234,14 @@ module rv3608c (
                         // rfilewdata = alu_op_a; //regfile[insn_rs1 + imm_i_sext];
 
 
-                        dmem_wr_addr = insn_rs1 + imm_s_sext; // It computes an effective address by adding the zero-extended offset, scaled by 4, to the base address in register rs1′.
-                        dmem_wr_data = regfile[dmem_wr_addr];
+                        dmem_wr_addr = regfile[insn_rs1] + imm_s_sext; // It computes an effective address by adding the zero-extended offset, scaled by 4, to the base address in register rs1′.
+                        dmem_wr_data = regfile[insn_rs2];
                         dmem[dmem_wr_addr] = dmem_wr_data; 
                         
                         // C.SW stores a 32-bit value in register rs2′ to memory.
                         // rfilewdata = dmem_wr_data;
 
-		                $display("sw 0x%08x to = 0x%08x. insn_rs1 0x%08x imm_s_sext 0x%08x ", dmem_wr_data, dmem_wr_addr, insn_rs1, imm_s_sext);
+		                $display("sw 0x%08x to = 0x%08x. insn_rs1 0x%08x, insn_rs2 0x%08x, imm_s_sext 0x%08x ", dmem_wr_data, dmem_wr_addr, insn_rs1, insn_rs2, imm_s_sext);
 
                     end
                     default: illegalinsn = 1;
