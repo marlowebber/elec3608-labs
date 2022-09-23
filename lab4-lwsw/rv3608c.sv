@@ -217,7 +217,7 @@ module rv3608c (
 
 
 
-          $display("x1 ra 0x%08x, x2 sp ", regfile[0'h1], regfile[0'h2]);
+          $display("x1 'ra' 0x%08x, x2 'sp'  0x%08x, x10 'a0'  0x%08x", regfile[0'h1], regfile[0'h2], regfile[0'ha]);
 
 
 
@@ -258,12 +258,12 @@ module rv3608c (
                         //  if (insn_opcode == `OPCODE_LOAD) begin
             // dmem[ dmem_wr_addr ] <= dmem_wr_data;
 
-                        dmem_rd_addr = insn_rs1 + imm_s_sext;
+                        dmem_rd_addr = regfile[insn_rs1] + imm_i_sext ; // uses imm_i_sext, even though store uses imm_s_sext!
                         dmem_rd_data = dmem[dmem_rd_addr];
                         rfilewdata = dmem_rd_data;
 
 
-		        $display("lw from 0x%08x = 0x%08x", dmem_rd_addr, dmem_rd_data);
+		                $display("lw from 0x%08x = 0x%08x, to 0x%08x,.  insn_rs1 0x%08x, insn_rs2 0x%08x, imm_i_sext 0x%08x", dmem_rd_addr, dmem_rd_data, insn_rd , insn_rs1, insn_rs2, imm_i_sext);
             
         // end
 

@@ -1104,9 +1104,11 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
     vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
-    VL_WRITEF("x1 ra 0x%08x, x2 sp %x\n",32,vlTOPp->testbench__DOT__dut__DOT__regfile
+    VL_WRITEF("x1 ra 0x%08x, x2 sp  0x%08x, x10 a0  0x%08x\n",
+              32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [1U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
-              [2U]);
+              [2U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
+              [0xaU]);
     if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
                | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
               | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
@@ -1149,17 +1151,25 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
                                                   >> 0xcU))))) {
                         vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
                         vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr 
-                            = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                                         >> 0xfU)) 
-                               + vlTOPp->testbench__DOT__dut__DOT__imm_s_sext);
+                            = (vlTOPp->testbench__DOT__dut__DOT__regfile
+                               [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xfU))] 
+                               + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
                         vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data 
                             = vlTOPp->testbench__DOT__dut__DOT__dmem
                             [(0x3ffU & vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr)];
                         vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
                             = vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data;
-                        VL_WRITEF("lw from 0x%08x = 0x%08x\n",
+                        VL_WRITEF("lw from 0x%08x = 0x%08x, to 0x%08x,.  insn_rs1 0x%08x, insn_rs2 0x%08x, imm_i_sext 0x%08x\n",
                                   32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr,
-                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data);
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data,
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 7U)),
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xfU)),
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0x14U)),
+                                  32,vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
                     } else {
                         vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
                     }
@@ -1350,9 +1360,11 @@ VL_INLINE_OPT void Vtestbench::_combo__TOP__5(Vtestbench__Syms* __restrict vlSym
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
     vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
-    VL_WRITEF("x1 ra 0x%08x, x2 sp %x\n",32,vlTOPp->testbench__DOT__dut__DOT__regfile
+    VL_WRITEF("x1 ra 0x%08x, x2 sp  0x%08x, x10 a0  0x%08x\n",
+              32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [1U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
-              [2U]);
+              [2U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
+              [0xaU]);
     if (((((((((0U == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
                | (0x23U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
               | (3U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
@@ -1395,17 +1407,25 @@ VL_INLINE_OPT void Vtestbench::_combo__TOP__5(Vtestbench__Syms* __restrict vlSym
                                                   >> 0xcU))))) {
                         vlTOPp->testbench__DOT__dut__DOT__regwrite = 1U;
                         vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr 
-                            = ((0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                                         >> 0xfU)) 
-                               + vlTOPp->testbench__DOT__dut__DOT__imm_s_sext);
+                            = (vlTOPp->testbench__DOT__dut__DOT__regfile
+                               [(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                          >> 0xfU))] 
+                               + vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
                         vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data 
                             = vlTOPp->testbench__DOT__dut__DOT__dmem
                             [(0x3ffU & vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr)];
                         vlTOPp->testbench__DOT__dut__DOT__rfilewdata 
                             = vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data;
-                        VL_WRITEF("lw from 0x%08x = 0x%08x\n",
+                        VL_WRITEF("lw from 0x%08x = 0x%08x, to 0x%08x,.  insn_rs1 0x%08x, insn_rs2 0x%08x, imm_i_sext 0x%08x\n",
                                   32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_addr,
-                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data);
+                                  32,vlTOPp->testbench__DOT__dut__DOT__dmem_rd_data,
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 7U)),
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0xfU)),
+                                  5,(0x1fU & (vlTOPp->testbench__DOT__imem_data 
+                                              >> 0x14U)),
+                                  32,vlTOPp->testbench__DOT__dut__DOT__imm_i_sext);
                     } else {
                         vlTOPp->testbench__DOT__dut__DOT__illegalinsn = 1U;
                     }
