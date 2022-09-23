@@ -53,6 +53,7 @@ VL_MODULE(Vtestbench) {
     IData/*31:0*/ testbench__DOT__dut__DOT__d_x4;
     IData/*31:0*/ testbench__DOT__dut__DOT__pc;
     IData/*31:0*/ testbench__DOT__dut__DOT__imm_i_sext;
+    IData/*31:0*/ testbench__DOT__dut__DOT__imm_s_sext;
     IData/*20:0*/ testbench__DOT__dut__DOT__imm_j;
     IData/*31:0*/ testbench__DOT__dut__DOT__alu_result;
     IData/*31:0*/ testbench__DOT__dut__DOT__alu_op_a;

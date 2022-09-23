@@ -214,6 +214,13 @@ module rv3608c (
 		regwrite = 0;
 		npc = pc + 4;
         rfilewdata = alu_result;
+
+
+
+          $display("x1 ra 0x%08x, x2 sp ", regfile[0'h1], regfile[0'h2]);
+
+
+
 		case (insn_opcode)
 			0: alu_op = `ALU_ADD;	// NOP
 
@@ -226,11 +233,15 @@ module rv3608c (
                         // storeaddr = insn_rs1 + imm_i_sext;
                         // rfilewdata = alu_op_a; //regfile[insn_rs1 + imm_i_sext];
 
-                        dmem_wr_data = alu_op_b;
-                        dmem_wr_addr = insn_rs1 + imm_i_sext;
 
+                        dmem_wr_addr = insn_rs1 + imm_s_sext; // It computes an effective address by adding the zero-extended offset, scaled by 4, to the base address in register rs1′.
+                        dmem_wr_data = regfile[dmem_wr_addr];
+                        dmem[dmem_wr_addr] = dmem_wr_data; 
+                        
+                        // C.SW stores a 32-bit value in register rs2′ to memory.
+                        // rfilewdata = dmem_wr_data;
 
-		        $display("sw 0x%08x to = 0x%08x", dmem_wr_data, dmem_wr_addr);
+		                $display("sw 0x%08x to = 0x%08x. insn_rs1 0x%08x imm_s_sext 0x%08x ", dmem_wr_data, dmem_wr_addr, insn_rs1, imm_s_sext);
 
                     end
                     default: illegalinsn = 1;
@@ -350,10 +361,12 @@ module rv3608c (
 				trapped <= 1;
 	
         pc <= npc;
+            $display("pc = 0x%08x", pc);
     
         // else begin
             if (regwrite && insn_rd > 0)  begin
                 regfile[insn_rd] <= rfilewdata;
+                x10 <= regfile[10];
             end
 
         // end

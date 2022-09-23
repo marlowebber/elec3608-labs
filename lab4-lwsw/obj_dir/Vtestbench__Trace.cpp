@@ -93,10 +93,7 @@ void Vtestbench::traceChgThis__2(Vtestbench__Syms* __restrict vlSymsp, Verilated
                                               & (vlTOPp->testbench__DOT__imem_data 
                                                  >> 0x14U)))
                              : vlTOPp->testbench__DOT__dut__DOT__imm_i_sext)),32);
-        vcdp->chgBus(c+97,(((0xfe0U & (vlTOPp->testbench__DOT__imem_data 
-                                       >> 0x14U)) | 
-                            (0x1fU & (vlTOPp->testbench__DOT__imem_data 
-                                      >> 7U)))),32);
+        vcdp->chgBus(c+97,(vlTOPp->testbench__DOT__dut__DOT__imm_s_sext),32);
         vcdp->chgBus(c+105,(vlTOPp->testbench__DOT__dut__DOT__imm_b),13);
         vcdp->chgBus(c+113,(vlTOPp->testbench__DOT__dut__DOT__imm_j),21);
         vcdp->chgBus(c+121,(VL_EXTENDS_II(32,13, (IData)(vlTOPp->testbench__DOT__dut__DOT__imm_b))),32);
@@ -143,45 +140,46 @@ void Vtestbench::traceChgThis__5(Vtestbench__Syms* __restrict vlSymsp, Verilated
     {
         vcdp->chgBit(c+241,(vlTOPp->testbench__DOT__dut__DOT__trapped));
         vcdp->chgBus(c+249,(vlTOPp->testbench__DOT__dut__DOT__pc),32);
-        vcdp->chgBus(c+257,(vlTOPp->testbench__DOT__dut__DOT__d_rd),5);
-        vcdp->chgBus(c+265,(vlTOPp->testbench__DOT__dut__DOT__d_x0),32);
-        vcdp->chgBus(c+273,(vlTOPp->testbench__DOT__dut__DOT__d_x1),32);
-        vcdp->chgBus(c+281,(vlTOPp->testbench__DOT__dut__DOT__d_x2),32);
-        vcdp->chgBus(c+289,(vlTOPp->testbench__DOT__dut__DOT__d_x3),32);
-        vcdp->chgBus(c+297,(vlTOPp->testbench__DOT__dut__DOT__d_x4),32);
-        vcdp->chgBus(c+305,(vlTOPp->testbench__DOT__dut__DOT__d_opcode),7);
-        vcdp->chgBus(c+313,(vlTOPp->testbench__DOT__dut__DOT__regfile[0]),32);
-        vcdp->chgBus(c+314,(vlTOPp->testbench__DOT__dut__DOT__regfile[1]),32);
-        vcdp->chgBus(c+315,(vlTOPp->testbench__DOT__dut__DOT__regfile[2]),32);
-        vcdp->chgBus(c+316,(vlTOPp->testbench__DOT__dut__DOT__regfile[3]),32);
-        vcdp->chgBus(c+317,(vlTOPp->testbench__DOT__dut__DOT__regfile[4]),32);
-        vcdp->chgBus(c+318,(vlTOPp->testbench__DOT__dut__DOT__regfile[5]),32);
-        vcdp->chgBus(c+319,(vlTOPp->testbench__DOT__dut__DOT__regfile[6]),32);
-        vcdp->chgBus(c+320,(vlTOPp->testbench__DOT__dut__DOT__regfile[7]),32);
-        vcdp->chgBus(c+321,(vlTOPp->testbench__DOT__dut__DOT__regfile[8]),32);
-        vcdp->chgBus(c+322,(vlTOPp->testbench__DOT__dut__DOT__regfile[9]),32);
-        vcdp->chgBus(c+323,(vlTOPp->testbench__DOT__dut__DOT__regfile[10]),32);
-        vcdp->chgBus(c+324,(vlTOPp->testbench__DOT__dut__DOT__regfile[11]),32);
-        vcdp->chgBus(c+325,(vlTOPp->testbench__DOT__dut__DOT__regfile[12]),32);
-        vcdp->chgBus(c+326,(vlTOPp->testbench__DOT__dut__DOT__regfile[13]),32);
-        vcdp->chgBus(c+327,(vlTOPp->testbench__DOT__dut__DOT__regfile[14]),32);
-        vcdp->chgBus(c+328,(vlTOPp->testbench__DOT__dut__DOT__regfile[15]),32);
-        vcdp->chgBus(c+329,(vlTOPp->testbench__DOT__dut__DOT__regfile[16]),32);
-        vcdp->chgBus(c+330,(vlTOPp->testbench__DOT__dut__DOT__regfile[17]),32);
-        vcdp->chgBus(c+331,(vlTOPp->testbench__DOT__dut__DOT__regfile[18]),32);
-        vcdp->chgBus(c+332,(vlTOPp->testbench__DOT__dut__DOT__regfile[19]),32);
-        vcdp->chgBus(c+333,(vlTOPp->testbench__DOT__dut__DOT__regfile[20]),32);
-        vcdp->chgBus(c+334,(vlTOPp->testbench__DOT__dut__DOT__regfile[21]),32);
-        vcdp->chgBus(c+335,(vlTOPp->testbench__DOT__dut__DOT__regfile[22]),32);
-        vcdp->chgBus(c+336,(vlTOPp->testbench__DOT__dut__DOT__regfile[23]),32);
-        vcdp->chgBus(c+337,(vlTOPp->testbench__DOT__dut__DOT__regfile[24]),32);
-        vcdp->chgBus(c+338,(vlTOPp->testbench__DOT__dut__DOT__regfile[25]),32);
-        vcdp->chgBus(c+339,(vlTOPp->testbench__DOT__dut__DOT__regfile[26]),32);
-        vcdp->chgBus(c+340,(vlTOPp->testbench__DOT__dut__DOT__regfile[27]),32);
-        vcdp->chgBus(c+341,(vlTOPp->testbench__DOT__dut__DOT__regfile[28]),32);
-        vcdp->chgBus(c+342,(vlTOPp->testbench__DOT__dut__DOT__regfile[29]),32);
-        vcdp->chgBus(c+343,(vlTOPp->testbench__DOT__dut__DOT__regfile[30]),32);
-        vcdp->chgBus(c+344,(vlTOPp->testbench__DOT__dut__DOT__regfile[31]),32);
+        vcdp->chgBus(c+257,(vlTOPp->testbench__DOT__x10),32);
+        vcdp->chgBus(c+265,(vlTOPp->testbench__DOT__dut__DOT__d_rd),5);
+        vcdp->chgBus(c+273,(vlTOPp->testbench__DOT__dut__DOT__d_x0),32);
+        vcdp->chgBus(c+281,(vlTOPp->testbench__DOT__dut__DOT__d_x1),32);
+        vcdp->chgBus(c+289,(vlTOPp->testbench__DOT__dut__DOT__d_x2),32);
+        vcdp->chgBus(c+297,(vlTOPp->testbench__DOT__dut__DOT__d_x3),32);
+        vcdp->chgBus(c+305,(vlTOPp->testbench__DOT__dut__DOT__d_x4),32);
+        vcdp->chgBus(c+313,(vlTOPp->testbench__DOT__dut__DOT__d_opcode),7);
+        vcdp->chgBus(c+321,(vlTOPp->testbench__DOT__dut__DOT__regfile[0]),32);
+        vcdp->chgBus(c+322,(vlTOPp->testbench__DOT__dut__DOT__regfile[1]),32);
+        vcdp->chgBus(c+323,(vlTOPp->testbench__DOT__dut__DOT__regfile[2]),32);
+        vcdp->chgBus(c+324,(vlTOPp->testbench__DOT__dut__DOT__regfile[3]),32);
+        vcdp->chgBus(c+325,(vlTOPp->testbench__DOT__dut__DOT__regfile[4]),32);
+        vcdp->chgBus(c+326,(vlTOPp->testbench__DOT__dut__DOT__regfile[5]),32);
+        vcdp->chgBus(c+327,(vlTOPp->testbench__DOT__dut__DOT__regfile[6]),32);
+        vcdp->chgBus(c+328,(vlTOPp->testbench__DOT__dut__DOT__regfile[7]),32);
+        vcdp->chgBus(c+329,(vlTOPp->testbench__DOT__dut__DOT__regfile[8]),32);
+        vcdp->chgBus(c+330,(vlTOPp->testbench__DOT__dut__DOT__regfile[9]),32);
+        vcdp->chgBus(c+331,(vlTOPp->testbench__DOT__dut__DOT__regfile[10]),32);
+        vcdp->chgBus(c+332,(vlTOPp->testbench__DOT__dut__DOT__regfile[11]),32);
+        vcdp->chgBus(c+333,(vlTOPp->testbench__DOT__dut__DOT__regfile[12]),32);
+        vcdp->chgBus(c+334,(vlTOPp->testbench__DOT__dut__DOT__regfile[13]),32);
+        vcdp->chgBus(c+335,(vlTOPp->testbench__DOT__dut__DOT__regfile[14]),32);
+        vcdp->chgBus(c+336,(vlTOPp->testbench__DOT__dut__DOT__regfile[15]),32);
+        vcdp->chgBus(c+337,(vlTOPp->testbench__DOT__dut__DOT__regfile[16]),32);
+        vcdp->chgBus(c+338,(vlTOPp->testbench__DOT__dut__DOT__regfile[17]),32);
+        vcdp->chgBus(c+339,(vlTOPp->testbench__DOT__dut__DOT__regfile[18]),32);
+        vcdp->chgBus(c+340,(vlTOPp->testbench__DOT__dut__DOT__regfile[19]),32);
+        vcdp->chgBus(c+341,(vlTOPp->testbench__DOT__dut__DOT__regfile[20]),32);
+        vcdp->chgBus(c+342,(vlTOPp->testbench__DOT__dut__DOT__regfile[21]),32);
+        vcdp->chgBus(c+343,(vlTOPp->testbench__DOT__dut__DOT__regfile[22]),32);
+        vcdp->chgBus(c+344,(vlTOPp->testbench__DOT__dut__DOT__regfile[23]),32);
+        vcdp->chgBus(c+345,(vlTOPp->testbench__DOT__dut__DOT__regfile[24]),32);
+        vcdp->chgBus(c+346,(vlTOPp->testbench__DOT__dut__DOT__regfile[25]),32);
+        vcdp->chgBus(c+347,(vlTOPp->testbench__DOT__dut__DOT__regfile[26]),32);
+        vcdp->chgBus(c+348,(vlTOPp->testbench__DOT__dut__DOT__regfile[27]),32);
+        vcdp->chgBus(c+349,(vlTOPp->testbench__DOT__dut__DOT__regfile[28]),32);
+        vcdp->chgBus(c+350,(vlTOPp->testbench__DOT__dut__DOT__regfile[29]),32);
+        vcdp->chgBus(c+351,(vlTOPp->testbench__DOT__dut__DOT__regfile[30]),32);
+        vcdp->chgBus(c+352,(vlTOPp->testbench__DOT__dut__DOT__regfile[31]),32);
     }
 }
 
@@ -191,7 +189,7 @@ void Vtestbench::traceChgThis__6(Vtestbench__Syms* __restrict vlSymsp, Verilated
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+569,(vlTOPp->clock));
-        vcdp->chgBit(c+577,(vlTOPp->reset));
+        vcdp->chgBit(c+577,(vlTOPp->clock));
+        vcdp->chgBit(c+585,(vlTOPp->reset));
     }
 }
