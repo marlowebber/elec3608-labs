@@ -33,8 +33,8 @@ test_verilator: testbench_verilator
 %.json: %.sv
 	yosys -s $*.yosys -l $*-yosys.log
 
-testbench_verilator: firmware.hex testbench.sv nerv.sv testbench.cpp 
-	$(VERILATOR) --cc --exe -Wno-lint -trace --top-module testbench testbench.sv nerv.sv testbench.cpp 
+testbench_verilator: firmware.hex testbench.sv nerv.sv nerv_2stage.sv testbench.cpp 
+	$(VERILATOR) --cc --exe -Wno-lint -trace --top-module testbench testbench.sv nerv.sv nerv_2stage.sv testbench.cpp 
 	$(MAKE) -C obj_dir -f Vtestbench.mk
 
 %.elf: %.s 

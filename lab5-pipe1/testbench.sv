@@ -100,7 +100,7 @@ initial begin
 	$readmemh("firmware.hex", mem);
 end
 
-nerv dut (
+nerv_2stage dut (
 	.clock(clock),
 	.reset(reset),
 	.trap(trap),

@@ -335,13 +335,11 @@ void Vtestbench::_settle__TOP__1(Vtestbench__Syms* __restrict vlSymsp) {
     if (((IData)(vlTOPp->reset) | (IData)(vlTOPp->testbench__DOT__dut__DOT__reset_q))) {
         vlTOPp->testbench__DOT__dut__DOT__next_wr = 0U;
     }
-    vlTOPp->testbench__DOT__dut__DOT__stage_1_en = vlTOPp->testbench__DOT__dut__DOT__stage_1_en_q;
-    if (((((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-           | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x17U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        vlTOPp->testbench__DOT__dut__DOT__stage_1_en = 0U;
-    }
+    vlTOPp->testbench__DOT__dut__DOT__stage_1_en = 
+        (1U & (~ ((((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
+                    | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+                   | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+                  | (0x17U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))));
     vlTOPp->testbench__DOT__dut__DOT__imm_s = ((0xfe0U 
                                                 & (vlTOPp->testbench__DOT__imem_data 
                                                    >> 0x14U)) 
@@ -1232,9 +1230,9 @@ void Vtestbench::_settle__TOP__1(Vtestbench__Syms* __restrict vlSymsp) {
         vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable = 0U;
         vlTOPp->testbench__DOT__dut__DOT__mem_wr_enable = 0U;
     }
-    vlTOPp->testbench__DOT__imem_addr = ((((IData)(vlTOPp->testbench__DOT__dut__DOT__trapped) 
-                                           | (IData)(vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable_q)) 
-                                          | (IData)(vlTOPp->testbench__DOT__dut__DOT__stage_1_en))
+    vlTOPp->testbench__DOT__imem_addr = ((1U & (((IData)(vlTOPp->testbench__DOT__dut__DOT__trapped) 
+                                                 | (IData)(vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable_q)) 
+                                                | (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__stage_1_en))))
                                           ? vlTOPp->testbench__DOT__dut__DOT__imem_addr_q
                                           : vlTOPp->testbench__DOT__dut__DOT__npc);
     vlTOPp->testbench__DOT__dmem_valid = ((IData)(vlTOPp->testbench__DOT__dut__DOT__mem_wr_enable) 
@@ -1306,9 +1304,9 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__2(Vtestbench__Syms* __restrict vlS
         VL_WRITEF("Simulated %0# cycles\n",32,vlTOPp->testbench__DOT__cycles);
         VL_FINISH_MT("testbench.sv", 124, "");
     }
-    vlTOPp->testbench__DOT__dut__DOT__imem_addr_q = vlTOPp->testbench__DOT__imem_addr;
     vlTOPp->testbench__DOT__dut__DOT__stage_1_en_q 
         = vlTOPp->testbench__DOT__dut__DOT__stage_1_en;
+    vlTOPp->testbench__DOT__dut__DOT__imem_addr_q = vlTOPp->testbench__DOT__imem_addr;
     vlTOPp->testbench__DOT__dut__DOT__mem_rd_func_q 
         = vlTOPp->testbench__DOT__dut__DOT__mem_rd_func;
     if ((1U & (~ (IData)(vlTOPp->reset)))) {
@@ -1574,13 +1572,11 @@ VL_INLINE_OPT void Vtestbench::_sequent__TOP__2(Vtestbench__Syms* __restrict vlS
             }
         }
     }
-    vlTOPp->testbench__DOT__dut__DOT__stage_1_en = vlTOPp->testbench__DOT__dut__DOT__stage_1_en_q;
-    if (((((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
-           | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-          | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
-         | (0x17U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))) {
-        vlTOPp->testbench__DOT__dut__DOT__stage_1_en = 0U;
-    }
+    vlTOPp->testbench__DOT__dut__DOT__stage_1_en = 
+        (1U & (~ ((((0x6fU == (0x7fU & vlTOPp->testbench__DOT__imem_data)) 
+                    | (0x67U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+                   | (0x63U == (0x7fU & vlTOPp->testbench__DOT__imem_data))) 
+                  | (0x17U == (0x7fU & vlTOPp->testbench__DOT__imem_data)))));
     vlTOPp->testbench__DOT__dut__DOT__imm_s = ((0xfe0U 
                                                 & (vlTOPp->testbench__DOT__imem_data 
                                                    >> 0x14U)) 
@@ -2704,9 +2700,9 @@ VL_INLINE_OPT void Vtestbench::_combo__TOP__4(Vtestbench__Syms* __restrict vlSym
         vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable = 0U;
         vlTOPp->testbench__DOT__dut__DOT__mem_wr_enable = 0U;
     }
-    vlTOPp->testbench__DOT__imem_addr = ((((IData)(vlTOPp->testbench__DOT__dut__DOT__trapped) 
-                                           | (IData)(vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable_q)) 
-                                          | (IData)(vlTOPp->testbench__DOT__dut__DOT__stage_1_en))
+    vlTOPp->testbench__DOT__imem_addr = ((1U & (((IData)(vlTOPp->testbench__DOT__dut__DOT__trapped) 
+                                                 | (IData)(vlTOPp->testbench__DOT__dut__DOT__mem_rd_enable_q)) 
+                                                | (~ (IData)(vlTOPp->testbench__DOT__dut__DOT__stage_1_en))))
                                           ? vlTOPp->testbench__DOT__dut__DOT__imem_addr_q
                                           : vlTOPp->testbench__DOT__dut__DOT__npc);
     vlTOPp->testbench__DOT__dmem_valid = ((IData)(vlTOPp->testbench__DOT__dut__DOT__mem_wr_enable) 
