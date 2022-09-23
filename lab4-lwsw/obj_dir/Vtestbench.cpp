@@ -1104,7 +1104,7 @@ void Vtestbench::_settle__TOP__4(Vtestbench__Syms* __restrict vlSymsp) {
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
     vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
-    VL_WRITEF("x1 ra 0x%08x, x2 sp  0x%08x, x10 a0  0x%08x\n",
+    VL_WRITEF("x1 'ra' 0x%08x, x2 'sp'  0x%08x, x10 'a0'  0x%08x\n",
               32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [1U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [2U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
@@ -1360,7 +1360,7 @@ VL_INLINE_OPT void Vtestbench::_combo__TOP__5(Vtestbench__Syms* __restrict vlSym
     vlTOPp->testbench__DOT__dut__DOT__npc = ((IData)(4U) 
                                              + vlTOPp->testbench__DOT__dut__DOT__pc);
     vlTOPp->testbench__DOT__dut__DOT__rfilewdata = vlTOPp->testbench__DOT__dut__DOT__alu_result;
-    VL_WRITEF("x1 ra 0x%08x, x2 sp  0x%08x, x10 a0  0x%08x\n",
+    VL_WRITEF("x1 'ra' 0x%08x, x2 'sp'  0x%08x, x10 'a0'  0x%08x\n",
               32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [1U],32,vlTOPp->testbench__DOT__dut__DOT__regfile
               [2U],32,vlTOPp->testbench__DOT__dut__DOT__regfile

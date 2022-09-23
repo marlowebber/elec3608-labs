@@ -81,6 +81,10 @@ module rv3608c (
     // split R-type instruction - see section 2.2 of RiscV spec
     assign {insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode} = insn;
 
+    // sign extended 6-bit immediate for C.LI and C.LUI
+    logic signed [31:0] imm_ci;
+    assign imm_ci =  {   insn[13:12] , insn[6:2]  };
+
     // setup for I, S, B & J type instructions
     // I - short immediates and loads
     logic   [11:0] imm_i;
@@ -146,6 +150,15 @@ module rv3608c (
             //         default: illegalinsn = 1;
 			// 	endcase
             // end
+
+
+
+			`OPCODE_C1: begin
+
+				 /* LI  */: 
+                alu_op = `ALU_ADD;
+
+            end
 
 			`OPCODE_OP_IMM: begin
 				casez ({insn_funct7, insn_funct3})
@@ -223,6 +236,23 @@ module rv3608c (
 
 		case (insn_opcode)
 			0: alu_op = `ALU_ADD;	// NOP
+
+
+			`OPCODE_C1: begin
+
+				 /* LI  */: 
+
+
+            // C.LI loads the sign-extended 6-bit immediate, imm, into register rd. C.LI is only valid when rd=x0. C.LI expands into addi rd, x0, imm[5:0].
+            // it uses the 'custom 1' opcode.
+
+            
+                        regwrite = 1;
+                        rfilewdata = imm_ci;
+                        
+
+            end
+
 
 
             `OPCODE_STORE: begin

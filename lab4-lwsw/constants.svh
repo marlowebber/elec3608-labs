@@ -31,7 +31,8 @@
 `define OPCODE_JAL      7'b11_011_11
 `define OPCODE_JALR     7'b11_001_11
 `define OPCODE_LOAD     7'b 00_000_11                               
-`define OPCODE_STORE    7'b 01_000_11
+`define OPCODE_STORE    7'b 01_000_11                            
+`define OPCODE_C1       7'b 01_010_11
 
 // 10-bit {insn_funct7, insn_funct3} opcodes
 `define OPCODE_SLLI 10'b0000000_001 

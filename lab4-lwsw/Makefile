@@ -18,7 +18,7 @@
 TOOLCHAIN_PREFIX?=riscv64-unknown-elf-
 VERILATOR = verilator
 
-all: test1.out # fib.out
+all: test1.out fib.out
 
 %.out: %.hex
 	cp $^ firmware.hex
