@@ -40,7 +40,6 @@ module rv3608c (
     assign  imem_addr = pc;
     assign  insn = imem_data;
 
-
     // data memory
     logic [31:0] dmem [0:1023];
     logic dmem_wr_enable;
@@ -49,7 +48,6 @@ module rv3608c (
                           
     logic [31:0] dmem_rd_addr;
     logic [31:0] dmem_rd_data;
-
 
     // Debugging
     logic   [4:0] d_rd;
@@ -129,35 +127,13 @@ module rv3608c (
     wire signed [31:0] alu_op_b_signed;
     assign alu_op_a_signed = alu_op_a;
     assign alu_op_b_signed = alu_op_b;
-    // logic [31:0] storeaddr;
 
     // Code below sets alu_op
     always_comb begin
 		case (insn_opcode)
 
-
-            // `OPCODE_STORE: begin
-            //     case ( insn_funct3 )
-            //         3'b 010 /* SW  */: alu_op = `ALU_SUB;
-            //         default: illegalinsn = 1;
-			// 	endcase
-            // end
-            
-            // `OPCODE_LOAD: begin
-
-			// 	case ( insn_funct3 )
-            //         3'b 010 /* LW  */: alu_op = `ALU_SUB;
-            //         default: illegalinsn = 1;
-			// 	endcase
-            // end
-
-
-
-			`OPCODE_C1: begin
-
-				 /* LI  */: 
+			`OPCODE_C1: begin /* LI  */
                 alu_op = `ALU_ADD;
-
             end
 
 			`OPCODE_OP_IMM: begin
@@ -228,49 +204,29 @@ module rv3608c (
 		npc = pc + 4;
         rfilewdata = alu_result;
 
-
-
-          $display("x1 'ra' 0x%08x, x2 'sp'  0x%08x, x10 'a0'  0x%08x", regfile[0'h1], regfile[0'h2], regfile[0'ha]);
-
-
+        $display("x1 'ra' 0x%08x, x2 'sp'  0x%08x, x10 'a0'  0x%08x", regfile[0'h1], regfile[0'h2], regfile[0'ha]);
 
 		case (insn_opcode)
-			0: alu_op = `ALU_ADD;	// NOP
-
-
-			`OPCODE_C1: begin
-
-				 /* LI  */: 
-
-
-            // C.LI loads the sign-extended 6-bit immediate, imm, into register rd. C.LI is only valid when rd=x0. C.LI expands into addi rd, x0, imm[5:0].
-            // it uses the 'custom 1' opcode.
-
-            
-                        regwrite = 1;
-                        rfilewdata = imm_ci;
-                        
-
+			0: begin
+                 alu_op = `ALU_ADD;	// NOP
             end
 
-
+			`OPCODE_C1: begin
+                /* LI  */
+                // C.LI loads the sign-extended 6-bit immediate, imm, into register rd. C.LI is only valid when rd=x0. C.LI expands into addi rd, x0, imm[5:0].
+                // it uses the 'custom 1' opcode.
+                regwrite = 1;
+                rfilewdata = imm_ci;
+            end
 
             `OPCODE_STORE: begin
-
                 case ( insn_funct3 )
                     3'b 010 /* SW  */: begin
-                        // regwrite = 1;
-                        // storeaddr = insn_rs1 + imm_i_sext;
-                        // rfilewdata = alu_op_a; //regfile[insn_rs1 + imm_i_sext];
-
-
                         dmem_wr_addr = regfile[insn_rs1] + imm_s_sext; // It computes an effective address by adding the zero-extended offset, scaled by 4, to the base address in register rs1′.
                         dmem_wr_data = regfile[insn_rs2];
                         dmem[dmem_wr_addr] = dmem_wr_data; 
-                        
                         // C.SW stores a 32-bit value in register rs2′ to memory.
                         // rfilewdata = dmem_wr_data;
-
 		                $display("sw 0x%08x to = 0x%08x. insn_rs1 0x%08x, insn_rs2 0x%08x, imm_s_sext 0x%08x ", dmem_wr_data, dmem_wr_addr, insn_rs1, insn_rs2, imm_s_sext);
 
                     end
@@ -279,32 +235,17 @@ module rv3608c (
             end
             
             `OPCODE_LOAD: begin
-
 				case ( insn_funct3 )
                     3'b 010 /* LW  */: begin
                         regwrite = 1;
-                        // rfilewdata = regfile[insn_rs1 + imm_i_sext];
-
-                        //  if (insn_opcode == `OPCODE_LOAD) begin
-            // dmem[ dmem_wr_addr ] <= dmem_wr_data;
-
                         dmem_rd_addr = regfile[insn_rs1] + imm_i_sext ; // uses imm_i_sext, even though store uses imm_s_sext!
                         dmem_rd_data = dmem[dmem_rd_addr];
                         rfilewdata = dmem_rd_data;
-
-
 		                $display("lw from 0x%08x = 0x%08x, to 0x%08x,.  insn_rs1 0x%08x, insn_rs2 0x%08x, imm_i_sext 0x%08x", dmem_rd_addr, dmem_rd_data, insn_rd , insn_rs1, insn_rs2, imm_i_sext);
-            
-        // end
-
                     end
                     default: illegalinsn = 1;
 				endcase
             end
-
-
-
-
 
             `OPCODE_OP_IMM: begin
                 regwrite = 1;
@@ -315,22 +256,18 @@ module rv3608c (
 
             `OPCODE_JAL: begin
                 // LAB implement JAL here
-
                 // JAL saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the program counter, and jumps to that address.
-               
-                    regwrite = 1;
+                regwrite = 1;
                 rfilewdata = npc;
                 npc = pc + imm_j_sext; 
             end
 
             `OPCODE_JALR: begin
                 // LAB implement JALR here
-
                 //JALR saves the next address (program counter +4) to the destination register, adds the immediate value encoded in the instruction to the source register, and jumps to that (even) address.
-                
-                    regwrite = 1;
+                regwrite = 1;
                 rfilewdata = npc;
-                 npc = (regfile[insn_rs1] + imm_i_sext) & ~32'b1;
+                npc = (regfile[insn_rs1] + imm_i_sext) & ~32'b1;
           
             end
 
@@ -393,45 +330,14 @@ module rv3608c (
         pc <= npc;
             $display("pc = 0x%08x", pc);
     
-        // else begin
-            if (regwrite && insn_rd > 0)  begin
-                regfile[insn_rd] <= rfilewdata;
-                x10 <= regfile[10];
-            end
-
-        // end
-
+        if (regwrite && insn_rd > 0)  begin
+            regfile[insn_rd] <= rfilewdata;
+            x10 <= regfile[10];
+        end
 
         if (insn_opcode == `OPCODE_STORE) begin
             dmem[ dmem_wr_addr ] <= dmem_wr_data;
         end
-
-       
-
-    // logic [31:0] dmem [0:1023];
-    // logic dmem_wr_enable;
-    // logic [31:0] dmem_wr_addr;
-    // logic [31:0] dmem_wr_data;
-                          
-    // logic [31:0] dmem_rd_addr;
-    // logic [31:0] dmem_rd_data;
-
-
-
-        // if (regwrite && insn_rd > 0) 
-        //     regfile[insn_rd] <= rfilewdata;
-        //     x10 <= regfile[10];
-    	// end
-
-
-
-
-
-        // x10 <= regfile[10];
-
-
-
-
 
     	end
         // reset
