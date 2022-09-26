@@ -17,7 +17,7 @@
  *
  */
 
-module nerv_2stage #(
+module nerv #(
 	parameter [31:0] RESET_ADDR = 32'h 0000_0000,
 	parameter integer NUMREGS = 32
 ) (
@@ -69,7 +69,12 @@ module nerv_2stage #(
 
 	// registers, instruction reg, program counter, next pc
 	logic [31:0] regfile [0:NUMREGS-1];
+
+
+	logic [31:0] insn_stage1;
 	wire [31:0] insn;
+
+
 	logic [31:0] npc;
 	logic [31:0] pc;
 
@@ -77,13 +82,17 @@ module nerv_2stage #(
 
 	always @(posedge clock) begin
 		imem_addr_q <= imem_addr;
+
+		insn = insn_stage1;
 	end
 
 	// instruction memory pointer
-	assign imem_addr = (trap || mem_rd_enable_q || (!stage_1_en) ) ? imem_addr_q : npc;
-	assign insn = imem_data;
+	assign imem_addr = (trap || mem_rd_enable_q) ? imem_addr_q : npc;
 
-	// rs1 and rs2 are source for the instruction
+	assign insn_stage1 = imem_data;
+	
+
+	// rs1 and rs2 are source for the instruction		
 	wire [31:0] rs1_value = !insn_rs1 ? 0 : regfile[insn_rs1];
 	wire [31:0] rs2_value = !insn_rs2 ? 0 : regfile[insn_rs2];
 
@@ -165,35 +174,7 @@ module nerv_2stage #(
 	logic trapped_q;
 	assign trap = trapped;
 
-
-
-	// 2 stage pipeline controls. stage 1 = fetch and increment counter. stage 2, execute, memory, write back.
-	logic stage_1_en;    // turn on and off.
-	logic stage_1_en_q;  //
-	logic stage_1_ready; // waiting for data to be taken.
-
-
 	always_comb begin
-
-
-		// pipelining.
-		stage_1_en = stage_1_en_q;
-
-		// these codes disrupt the pipeline by causing the next instruction to be an unknown distance ahead.
-		if (  
-			insn_opcode == OPCODE_JAL
-		||  insn_opcode == OPCODE_JALR
-		||  insn_opcode == OPCODE_BRANCH
-		||  insn_opcode == OPCODE_AUIPC
-		 ) 
-		begin
-			stage_1_en = 0;
-		end
-		else begin
-			stage_1_en = 1;
-		end
-
-
 		// advance pc
 		npc = pc + 4;
 
@@ -377,7 +358,6 @@ module nerv_2stage #(
 	always @(posedge clock) begin
 		reset_q <= reset;
 		trapped_q <= trapped;
-		stage_1_en_q <= stage_1_en;
 
 		// increment pc if possible
 		if (!trapped && !reset && !reset_q) begin
