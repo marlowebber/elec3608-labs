@@ -69,12 +69,7 @@ module nerv #(
 
 	// registers, instruction reg, program counter, next pc
 	logic [31:0] regfile [0:NUMREGS-1];
-
-
-	logic [31:0] insn_stage1;
 	wire [31:0] insn;
-
-
 	logic [31:0] npc;
 	logic [31:0] pc;
 
@@ -82,52 +77,130 @@ module nerv #(
 
 	always @(posedge clock) begin
 		imem_addr_q <= imem_addr;
-
-		insn = insn_stage1;
 	end
 
 	// instruction memory pointer
 	assign imem_addr = (trap || mem_rd_enable_q) ? imem_addr_q : npc;
+	assign insn = imem_data;
 
-	assign insn_stage1 = imem_data;
-	
-
-	// rs1 and rs2 are source for the instruction	
-	wire [31:0] rs1_value = !insn_rs1 ? 0 : regfile[insn_rs1];
-	wire [31:0] rs2_value = !insn_rs2 ? 0 : regfile[insn_rs2];
+	// rs1 and rs2 are source for the instruction
+	wire [31:0] rs1_value_ = !insn_rs1_ ? 0 : regfile[insn_rs1_];
+	wire [31:0] rs2_value_ = !insn_rs2_ ? 0 : regfile[insn_rs2_];
 
 	// components of the instruction
+	wire [6:0] insn_funct7_;
+	wire [4:0] insn_rs2_;
+	wire [4:0] insn_rs1_;
+	wire [2:0] insn_funct3_;
+	wire [4:0] insn_rd_;
+	wire [6:0] insn_opcode_;
+
+	// split R-type instruction - see section 2.2 of RiscV spec
+	assign {insn_funct7_, insn_rs2_, insn_rs1_, insn_funct3_, insn_rd_, insn_opcode_} = insn;
+
+
+
+
+
+
+	// setup for I, S, B & J type instructions
+	// I - short immediates and loads
+	wire [11:0] imm_i_;
+	assign imm_i_ = insn[31:20];
+
+	// S - stores
+	wire [11:0] imm_s_;
+	assign imm_s_[11:5] = insn_funct7, imm_s_[4:0] = insn_rd;
+
+	// B - conditionals
+	wire [12:0] imm_b_;
+	assign {imm_b_[12], imm_b_[10:5]} = insn_funct7, {imm_b_[4:1], imm_b_[11]} = insn_rd_, imm_b_[0] = 1'b0;
+
+	// J - unconditional jumps
+	wire [20:0] imm_j_;
+	assign {imm_j_[20], imm_j_[10:1], imm_j_[11], imm_j_[19:12], imm_j_[0]} = {insn[31:12], 1'b0};
+
+	wire [31:0] imm_i_sext_ = $signed(imm_i_);
+	wire [31:0] imm_s_sext_ = $signed(imm_s_);
+	wire [31:0] imm_b_sext_ = $signed(imm_b_);
+	wire [31:0] imm_j_sext_ = $signed(imm_j_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// the same stuff is available again in the second stage. it's called the same but without a trailing underscore.
 	wire [6:0] insn_funct7;
 	wire [4:0] insn_rs2;
 	wire [4:0] insn_rs1;
 	wire [2:0] insn_funct3;
 	wire [4:0] insn_rd;
 	wire [6:0] insn_opcode;
-
-	// split R-type instruction - see section 2.2 of RiscV spec
-	assign {insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode} = insn;
-
-	// setup for I, S, B & J type instructions
-	// I - short immediates and loads
+	wire [31:0] rs1_value;
+	wire [31:0] rs2_value;
 	wire [11:0] imm_i;
-	assign imm_i = insn[31:20];
-
-	// S - stores
 	wire [11:0] imm_s;
-	assign imm_s[11:5] = insn_funct7, imm_s[4:0] = insn_rd;
-
-	// B - conditionals
 	wire [12:0] imm_b;
-	assign {imm_b[12], imm_b[10:5]} = insn_funct7, {imm_b[4:1], imm_b[11]} = insn_rd, imm_b[0] = 1'b0;
-
-	// J - unconditional jumps
 	wire [20:0] imm_j;
-	assign {imm_j[20], imm_j[10:1], imm_j[11], imm_j[19:12], imm_j[0]} = {insn[31:12], 1'b0};
+	wire [31:0] imm_i_sext;
+	wire [31:0] imm_s_sext;
+	wire [31:0] imm_b_sext;
+	wire [31:0] imm_j_sext;
+	logic next_wr;
+	logic [31:0] next_rd;
+	logic illinsn;
 
-	wire [31:0] imm_i_sext = $signed(imm_i);
-	wire [31:0] imm_s_sext = $signed(imm_s);
-	wire [31:0] imm_b_sext = $signed(imm_b);
-	wire [31:0] imm_j_sext = $signed(imm_j);
+
+
+	wire [315:0] stage_1_out;
+	
+
+	assign stage_1_out = { 
+	next_wr_, next_rd_, illinsn_, rs1_value_, rs2_value_,
+	insn_funct7_, insn_rs2_, insn_rs1_, insn_funct3_, insn_rd_, insn_opcode_, 
+	imm_i_, imm_s_, imm_b_, imm_j_, imm_i_sext_, imm_s_sext_, imm_b_sext_, imm_j_sext_
+
+	 };
+
+	always @(posedge clock)
+	begin
+		stage_2_in <= stage_1_out;
+	end
+
+	// between the stages contains all these things in order:
+	// next_wr, next_rd, illinsn, rs1_value, rs2_value
+	// insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode, 
+	// imm_i, imm_s, imm_b, imm_j, imm_i_sext, imm_s_sext, imm_b_sext, imm_j_sext
+
+	// the sizes of those are:
+	// 1 + 32 + 1 + 32 + 32
+	// 32
+	// 12 + 12 + 13 + 21 + 32 + 32 + 32 + 32
+
+	// the total size is: 316
+
+	reg [315:0] stage_2_in;
+	assign {
+		next_wr, next_rd, illinsn, rs1_value, rs2_value
+		insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode, 
+		imm_i, imm_s, imm_b, imm_j, imm_i_sext, imm_s_sext, imm_b_sext, imm_j_sext
+	} = stage_2_in;
+
+
+
+
 
 	// opcodes - see section 19 of RiscV spec
 	localparam OPCODE_LOAD       = 7'b 00_000_11;
@@ -166,9 +239,9 @@ module nerv #(
 	localparam OPCODE_CUSTOM_3   = 7'b 11_110_11;
 
 	// next write, next destination (rd), illegal instruction registers
-	logic next_wr;
-	logic [31:0] next_rd;
-	logic illinsn;
+	logic next_wr_;
+	logic [31:0] next_rd_;
+	logic illinsn_;
 
 	logic trapped;
 	logic trapped_q;
