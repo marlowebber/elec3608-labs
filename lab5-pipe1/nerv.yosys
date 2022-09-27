@@ -2,6 +2,6 @@
 # It outputs a json file that can be read by nextpnr.
 
 # read_verilog -sv nerv.sv 
-read_verilog -sv nerv_2stage.sv 
+read_verilog -sv nerv_balanced2.sv 
 
 synth_ice40 -top nerv -json nerv.json

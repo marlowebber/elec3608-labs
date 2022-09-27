@@ -84,128 +84,43 @@ module nerv #(
 	assign insn = imem_data;
 
 	// rs1 and rs2 are source for the instruction
-	wire [31:0] rs1_value_ = !insn_rs1_ ? 0 : regfile[insn_rs1_];
-	wire [31:0] rs2_value_ = !insn_rs2_ ? 0 : regfile[insn_rs2_];
+	wire [31:0] rs1_value = !insn_rs1 ? 0 : regfile[insn_rs1];
+	wire [31:0] rs2_value = !insn_rs2 ? 0 : regfile[insn_rs2];
+
+
 
 	// components of the instruction
-	wire [6:0] insn_funct7_;
-	wire [4:0] insn_rs2_;
-	wire [4:0] insn_rs1_;
-	wire [2:0] insn_funct3_;
-	wire [4:0] insn_rd_;
-	wire [6:0] insn_opcode_;
-
-	// split R-type instruction - see section 2.2 of RiscV spec
-	assign {insn_funct7_, insn_rs2_, insn_rs1_, insn_funct3_, insn_rd_, insn_opcode_} = insn;
-
-
-
-
-
-
-	// setup for I, S, B & J type instructions
-	// I - short immediates and loads
-	wire [11:0] imm_i_;
-	assign imm_i_ = insn[31:20];
-
-	// S - stores
-	wire [11:0] imm_s_;
-	assign imm_s_[11:5] = insn_funct7, imm_s_[4:0] = insn_rd;
-
-	// B - conditionals
-	wire [12:0] imm_b_;
-	assign {imm_b_[12], imm_b_[10:5]} = insn_funct7, {imm_b_[4:1], imm_b_[11]} = insn_rd_, imm_b_[0] = 1'b0;
-
-	// J - unconditional jumps
-	wire [20:0] imm_j_;
-	assign {imm_j_[20], imm_j_[10:1], imm_j_[11], imm_j_[19:12], imm_j_[0]} = {insn[31:12], 1'b0};
-
-	wire [31:0] imm_i_sext_ = $signed(imm_i_);
-	wire [31:0] imm_s_sext_ = $signed(imm_s_);
-	wire [31:0] imm_b_sext_ = $signed(imm_b_);
-	wire [31:0] imm_j_sext_ = $signed(imm_j_);
-
-
-	// next write, next destination (rd), illegal instruction registers
-	logic next_wr_;
-	logic [31:0] next_rd_;
-	logic illinsn_;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// the same stuff is available again in the second stage. it's called the same but without a trailing underscore.
 	wire [6:0] insn_funct7;
 	wire [4:0] insn_rs2;
 	wire [4:0] insn_rs1;
 	wire [2:0] insn_funct3;
 	wire [4:0] insn_rd;
 	wire [6:0] insn_opcode;
-	wire [31:0] rs1_value;
-	wire [31:0] rs2_value;
+
+	// split R-type instruction - see section 2.2 of RiscV spec
+	assign {insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode} = insn_b;
+
+	// setup for I, S, B & J type instructions
+	// I - short immediates and loads
 	wire [11:0] imm_i;
+	assign imm_i = insn_b[31:20];
+
+	// S - stores
 	wire [11:0] imm_s;
+	assign imm_s[11:5] = insn_funct7, imm_s[4:0] = insn_rd;
+
+	// B - conditionals
 	wire [12:0] imm_b;
+	assign {imm_b[12], imm_b[10:5]} = insn_funct7, {imm_b[4:1], imm_b[11]} = insn_rd, imm_b[0] = 1'b0;
+
+	// J - unconditional jumps
 	wire [20:0] imm_j;
-	wire [31:0] imm_i_sext;
-	wire [31:0] imm_s_sext;
-	wire [31:0] imm_b_sext;
-	wire [31:0] imm_j_sext;
-	logic next_wr;
-	logic [31:0] next_rd;
-	logic illinsn;
+	assign {imm_j[20], imm_j[10:1], imm_j[11], imm_j[19:12], imm_j[0]} = {insn_b[31:12], 1'b0};
 
-
-
-	wire [315:0] stage_1_out;
-	
-
-	assign stage_1_out = { 
-	next_wr_, next_rd_, illinsn_, rs1_value_, rs2_value_,
-	insn_funct7_, insn_rs2_, insn_rs1_, insn_funct3_, insn_rd_, insn_opcode_, 
-	imm_i_, imm_s_, imm_b_, imm_j_, imm_i_sext_, imm_s_sext_, imm_b_sext_, imm_j_sext_
-
-	 };
-
-	always @(posedge clock)
-	begin
-		stage_2_in <= stage_1_out;
-	end
-
-	// between the stages contains all these things in order:
-	// next_wr, next_rd, illinsn, rs1_value, rs2_value
-	// insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode, 
-	// imm_i, imm_s, imm_b, imm_j, imm_i_sext, imm_s_sext, imm_b_sext, imm_j_sext
-
-	// the sizes of those are:
-	// 1 + 32 + 1 + 32 + 32
-	// 32
-	// 12 + 12 + 13 + 21 + 32 + 32 + 32 + 32
-
-	// the total size is: 316
-
-	reg [315:0] stage_2_in;
-	assign {
-		next_wr, next_rd, illinsn, rs1_value, rs2_value,
-		insn_funct7, insn_rs2, insn_rs1, insn_funct3, insn_rd, insn_opcode, 
-		imm_i, imm_s, imm_b, imm_j, imm_i_sext, imm_s_sext, imm_b_sext, imm_j_sext
-	} = stage_2_in;
-
-
-
-
+	wire [31:0] imm_i_sext = $signed(imm_i);
+	wire [31:0] imm_s_sext = $signed(imm_s);
+	wire [31:0] imm_b_sext = $signed(imm_b);
+	wire [31:0] imm_j_sext = $signed(imm_j);
 
 	// opcodes - see section 19 of RiscV spec
 	localparam OPCODE_LOAD       = 7'b 00_000_11;
@@ -243,13 +158,46 @@ module nerv #(
 	localparam OPCODE_CUSTOM_2   = 7'b 10_110_11;
 	localparam OPCODE_CUSTOM_3   = 7'b 11_110_11;
 
+	// next write, next destination (rd), illegal instruction registers
+	logic next_wr;
+	logic [31:0] next_rd;
+	logic illinsn;
+
 	logic trapped;
 	logic trapped_q;
 	assign trap = trapped;
 
+
+
+	// wire->reg pairs are used to pass information between stages.
+	/*
+	the info that must be passed is:
+npc
+pc
+Rs1 and rs2 values
+Insn
+
+
+	*/
+
+	reg [31:0] npc_b;
+	reg [31:0] pc_b;
+	reg [31:0] rs1_value_b;
+	reg [31:0] rs2_value_b;
+	reg [31:0] insn_b;
+
+	always @(posedge clock) begin
+		// npc_b <= npc;
+		pc_b <= pc;
+		rs1_value_b <= rs1_value;
+		rs2_value_b <= rs2_value;
+		insn_b <= insn;
+	end
+
 	always_comb begin
 		// advance pc
 		npc = pc + 4;
+		npc_b = npc;
 
 		// defaults for read, write
 		next_wr = 0;
@@ -271,21 +219,21 @@ module nerv #(
 			// Load Upper Immediate
 			OPCODE_LUI: begin
 				next_wr = 1;
-				next_rd = insn[31:12] << 12;
+				next_rd = insn_b[31:12] << 12;
 			end
 			// Add Upper Immediate to Program Counter
 			OPCODE_AUIPC: begin
 				next_wr = 1;
-				next_rd = (insn[31:12] << 12) + pc;
+				next_rd = (insn_b[31:12] << 12) + pc_b;
 			end
 			// Jump And Link (unconditional jump)
 			OPCODE_JAL: begin
 				next_wr = 1;
-				next_rd = npc;
-				npc = pc + imm_j_sext;
-				if (npc & 32'b 11) begin
+				next_rd = npc_b;
+				npc_b = pc_b + imm_j_sext;
+				if (npc_b & 32'b 11) begin
 					illinsn = 1;
-					npc = npc & ~32'b 11;
+					npc_b = npc_b & ~32'b 11;
 				end
 			end
 			// Jump And Link Register (indirect jump)
@@ -293,35 +241,35 @@ module nerv #(
 				case (insn_funct3)
 					3'b 000 /* JALR */: begin
 						next_wr = 1;
-						next_rd = npc;
-						npc = (rs1_value + imm_i_sext) & ~32'b 1;
+						next_rd = npc_b;
+						npc_b = (rs1_value_b + imm_i_sext) & ~32'b 1;
 					end
 					default: illinsn = 1;
 				endcase
-				if (npc & 32'b 11) begin
+				if (npc_b & 32'b 11) begin
 					illinsn = 1;
-					npc = npc & ~32'b 11;
+					npc_b = npc_b & ~32'b 11;
 				end
 			end
 			// branch instructions: Branch If Equal, Branch Not Equal, Branch Less Than, Branch Greater Than, Branch Less Than Unsigned, Branch Greater Than Unsigned
 			OPCODE_BRANCH: begin
 				case (insn_funct3)
-					3'b 000 /* BEQ  */: begin if (rs1_value == rs2_value) npc = pc + imm_b_sext; end
-					3'b 001 /* BNE  */: begin if (rs1_value != rs2_value) npc = pc + imm_b_sext; end
-					3'b 100 /* BLT  */: begin if ($signed(rs1_value) < $signed(rs2_value)) npc = pc + imm_b_sext; end
-					3'b 101 /* BGE  */: begin if ($signed(rs1_value) >= $signed(rs2_value)) npc = pc + imm_b_sext; end
-					3'b 110 /* BLTU */: begin if (rs1_value < rs2_value) npc = pc + imm_b_sext; end
-					3'b 111 /* BGEU */: begin if (rs1_value >= rs2_value) npc = pc + imm_b_sext; end
+					3'b 000 /* BEQ  */: begin if (rs1_value_b == rs2_value_b) npc_b = pc_b + imm_b_sext; end
+					3'b 001 /* BNE  */: begin if (rs1_value_b != rs2_value_b) npc_b = pc_b + imm_b_sext; end
+					3'b 100 /* BLT  */: begin if ($signed(rs1_value_b) < $signed(rs2_value_b)) npc_b = pc_b + imm_b_sext; end
+					3'b 101 /* BGE  */: begin if ($signed(rs1_value_b) >= $signed(rs2_value_b)) npc_b = pc_b + imm_b_sext; end
+					3'b 110 /* BLTU */: begin if (rs1_value_b < rs2_value_b) npc_b = pc_b + imm_b_sext; end
+					3'b 111 /* BGEU */: begin if (rs1_value_b >= rs2_value_b) npc_b = pc_b + imm_b_sext; end
 					default: illinsn = 1;
 				endcase
-				if (npc & 32'b 11) begin
+				if (npc_b & 32'b 11) begin
 					illinsn = 1;
-					npc = npc & ~32'b 11;
+					npc_b = npc_b & ~32'b 11;
 				end
 			end
 			// load from memory into rd: Load Byte, Load Halfword, Load Word, Load Byte Unsigned, Load Halfword Unsigned
 			OPCODE_LOAD: begin
-				mem_rd_addr = rs1_value + imm_i_sext;
+				mem_rd_addr = rs1_value_b + imm_i_sext;
 				casez ({insn_funct3, mem_rd_addr[1:0]})
 					5'b 000_zz /* LB  */,
 					5'b 001_z0 /* LH  */,
@@ -338,13 +286,13 @@ module nerv #(
 			end
 			// store to memory instructions: Store Byte, Store Halfword, Store Word
 			OPCODE_STORE: begin
-				mem_wr_addr = rs1_value + imm_s_sext;
+				mem_wr_addr = rs1_value_b + imm_s_sext;
 				casez ({insn_funct3, mem_wr_addr[1:0]})
 					5'b 000_zz /* SB */,
 					5'b 001_z0 /* SH */,
 					5'b 010_00 /* SW */: begin
 						mem_wr_enable = 1;
-						mem_wr_data = rs2_value;
+						mem_wr_data = rs2_value_b;
 						mem_wr_strb = 4'b 1111;
 						case (insn_funct3)
 							3'b 000 /* SB  */: begin mem_wr_strb = 4'b 0001; end
@@ -362,15 +310,15 @@ module nerv #(
 			// OR Immediate, And Immediate, Shift Left Logical Immediate, Shift Right Logical Immediate, Shift Right Arithmetic Immediate
 			OPCODE_OP_IMM: begin
 				casez ({insn_funct7, insn_funct3})
-					10'b zzzzzzz_000 /* ADDI  */: begin next_wr = 1; next_rd = rs1_value + imm_i_sext; end
-					10'b zzzzzzz_010 /* SLTI  */: begin next_wr = 1; next_rd = $signed(rs1_value) < $signed(imm_i_sext); end
-					10'b zzzzzzz_011 /* SLTIU */: begin next_wr = 1; next_rd = rs1_value < imm_i_sext; end
-					10'b zzzzzzz_100 /* XORI  */: begin next_wr = 1; next_rd = rs1_value ^ imm_i_sext; end
-					10'b zzzzzzz_110 /* ORI   */: begin next_wr = 1; next_rd = rs1_value | imm_i_sext; end
-					10'b zzzzzzz_111 /* ANDI  */: begin next_wr = 1; next_rd = rs1_value & imm_i_sext; end
-					10'b 0000000_001 /* SLLI  */: begin next_wr = 1; next_rd = rs1_value << insn[24:20]; end
-					10'b 0000000_101 /* SRLI  */: begin next_wr = 1; next_rd = rs1_value >> insn[24:20]; end
-					10'b 0100000_101 /* SRAI  */: begin next_wr = 1; next_rd = $signed(rs1_value) >>> insn[24:20]; end
+					10'b zzzzzzz_000 /* ADDI  */: begin next_wr = 1; next_rd = rs1_value_b + imm_i_sext; end
+					10'b zzzzzzz_010 /* SLTI  */: begin next_wr = 1; next_rd = $signed(rs1_value_b) < $signed(imm_i_sext); end
+					10'b zzzzzzz_011 /* SLTIU */: begin next_wr = 1; next_rd = rs1_value_b < imm_i_sext; end
+					10'b zzzzzzz_100 /* XORI  */: begin next_wr = 1; next_rd = rs1_value_b ^ imm_i_sext; end
+					10'b zzzzzzz_110 /* ORI   */: begin next_wr = 1; next_rd = rs1_value_b | imm_i_sext; end
+					10'b zzzzzzz_111 /* ANDI  */: begin next_wr = 1; next_rd = rs1_value_b & imm_i_sext; end
+					10'b 0000000_001 /* SLLI  */: begin next_wr = 1; next_rd = rs1_value_b << insn_b[24:20]; end
+					10'b 0000000_101 /* SRLI  */: begin next_wr = 1; next_rd = rs1_value_b >> insn_b[24:20]; end
+					10'b 0100000_101 /* SRAI  */: begin next_wr = 1; next_rd = $signed(rs1_value_b) >>> insn_b[24:20]; end
 					default: illinsn = 1;
 				endcase
 			end
@@ -378,16 +326,16 @@ module nerv #(
 			// ALU instructions: Add, Subtract, Shift Left Logical, Set Left Than, Set Less Than Unsigned, XOR, Shift Right Logical,
 			// Shift Right Arithmetic, OR, AND
 				case ({insn_funct7, insn_funct3})
-					10'b 0000000_000 /* ADD  */: begin next_wr = 1; next_rd = rs1_value + rs2_value; end
-					10'b 0100000_000 /* SUB  */: begin next_wr = 1; next_rd = rs1_value - rs2_value; end
-					10'b 0000000_001 /* SLL  */: begin next_wr = 1; next_rd = rs1_value << rs2_value[4:0]; end
-					10'b 0000000_010 /* SLT  */: begin next_wr = 1; next_rd = $signed(rs1_value) < $signed(rs2_value); end
-					10'b 0000000_011 /* SLTU */: begin next_wr = 1; next_rd = rs1_value < rs2_value; end
-					10'b 0000000_100 /* XOR  */: begin next_wr = 1; next_rd = rs1_value ^ rs2_value; end
-					10'b 0000000_101 /* SRL  */: begin next_wr = 1; next_rd = rs1_value >> rs2_value[4:0]; end
-					10'b 0100000_101 /* SRA  */: begin next_wr = 1; next_rd = $signed(rs1_value) >>> rs2_value[4:0]; end
-					10'b 0000000_110 /* OR   */: begin next_wr = 1; next_rd = rs1_value | rs2_value; end
-					10'b 0000000_111 /* AND  */: begin next_wr = 1; next_rd = rs1_value & rs2_value; end
+					10'b 0000000_000 /* ADD  */: begin next_wr = 1; next_rd = rs1_value_b + rs2_value_b; end
+					10'b 0100000_000 /* SUB  */: begin next_wr = 1; next_rd = rs1_value_b - rs2_value_b; end
+					10'b 0000000_001 /* SLL  */: begin next_wr = 1; next_rd = rs1_value_b << rs2_value_b[4:0]; end
+					10'b 0000000_010 /* SLT  */: begin next_wr = 1; next_rd = $signed(rs1_value_b) < $signed(rs2_value_b); end
+					10'b 0000000_011 /* SLTU */: begin next_wr = 1; next_rd = rs1_value_b < rs2_value_b; end
+					10'b 0000000_100 /* XOR  */: begin next_wr = 1; next_rd = rs1_value_b ^ rs2_value_b; end
+					10'b 0000000_101 /* SRL  */: begin next_wr = 1; next_rd = rs1_value_b >> rs2_value_b[4:0]; end
+					10'b 0100000_101 /* SRA  */: begin next_wr = 1; next_rd = $signed(rs1_value_b) >>> rs2_value_b[4:0]; end
+					10'b 0000000_110 /* OR   */: begin next_wr = 1; next_rd = rs1_value_b | rs2_value_b; end
+					10'b 0000000_111 /* AND  */: begin next_wr = 1; next_rd = rs1_value_b & rs2_value_b; end
 					default: illinsn = 1;
 				endcase
 			end
@@ -396,7 +344,7 @@ module nerv #(
 
 		// if last cycle was a memory read, then this cycle is the 2nd part of it and imem_data will not be a valid instruction
 		if (mem_rd_enable_q) begin
-			npc = pc;
+			npc_b = pc_b;
 			next_wr = 0;
 			illinsn = 0;
 			mem_rd_enable = 0;
@@ -405,7 +353,7 @@ module nerv #(
 
 		// reset
 		if (reset || reset_q) begin
-			npc = RESET_ADDR;
+			npc_b = RESET_ADDR;
 			next_wr = 0;
 			illinsn = 0;
 			mem_rd_enable = 0;
@@ -436,7 +384,7 @@ module nerv #(
 		if (!trapped && !reset && !reset_q) begin
 			if (illinsn)
 				trapped <= 1;
-			pc <= npc;
+			pc <= npc_b;
 			// update registers from memory or rd (destination)
 			if (mem_rd_enable_q || next_wr)
 				regfile[mem_rd_enable_q ? mem_rd_reg_q : insn_rd] <= mem_rd_enable_q ? mem_rdata : next_rd;
