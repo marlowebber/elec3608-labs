@@ -51,8 +51,14 @@ module nerv #(
 	logic [4:0] mem_rd_reg_q;
 	logic [4:0] mem_rd_func_q;
 
+	logic branch_delay;
+	logic branch_delay_q;
+	
+
 	// delayed copies of mem_rd
 	always @(posedge clock) begin
+		branch_delay_q <= branch_delay;
+		mem_rd_enable_q <= mem_rd_enable;
 		mem_rd_enable_q <= mem_rd_enable;
 		mem_rd_reg_q <= mem_rd_reg;
 		mem_rd_func_q <= mem_rd_func;
@@ -196,6 +202,14 @@ Insn
 
 	always_comb begin
 		// advance pc
+
+		if (branch_delay_q) begin
+
+			// if branch delay slot, set the alu to NOP.
+			insn_opcode = ALU_NOP;
+			
+		end
+		
 		npc = pc + 4;
 		npc_b = npc;
 
@@ -213,6 +227,9 @@ Insn
 		mem_rd_addr = 'hx;
 		mem_rd_reg = 'hx;
 		mem_rd_func = 'hx;
+
+
+		branch_delay = 0;
 
 		// act on opcodes
 		case (insn_opcode)
@@ -266,6 +283,7 @@ Insn
 					illinsn = 1;
 					npc_b = npc_b & ~32'b 11;
 				end
+				branch_delay = 1;
 			end
 			// load from memory into rd: Load Byte, Load Halfword, Load Word, Load Byte Unsigned, Load Halfword Unsigned
 			OPCODE_LOAD: begin
